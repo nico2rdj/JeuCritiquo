@@ -8,6 +8,7 @@ import {
   CardText,
   CardTitle
 } from "reactstrap";
+import GameDetail from "./GamedetailComponent";
 
 class Menu extends Component {
   constructor(props) {
@@ -67,7 +68,10 @@ class Menu extends Component {
     return (
       <div className="container">
         <div className="row">{menu}</div>
-        <div className="row">{this.renderGame(this.state.selectedGame)}</div>
+        <div className="row">
+          {" "}
+          <GameDetail game={this.state.selectedGame} />
+        </div>
       </div>
     );
   }
