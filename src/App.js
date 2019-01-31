@@ -3,8 +3,17 @@ import logo from "./logo.svg";
 import { Navbar, NavbarBrand } from "reactstrap";
 import Menu from "./components/MenuComponent";
 import "./App.css";
+import { GAMES } from "./shared/games";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      games: GAMES
+    };
+  }
+
   render() {
     return (
       <div className="App">
@@ -13,7 +22,7 @@ class App extends Component {
             <NavbarBrand href="/">Jeu Critiquo</NavbarBrand>
           </div>
         </Navbar>
-        <Menu />
+        <Menu games={this.state.games} />
       </div>
     );
   }
