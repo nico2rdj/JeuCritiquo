@@ -8,19 +8,10 @@ import {
   CardText,
   CardTitle
 } from "reactstrap";
-import GameDetail from "./GamedetailComponent";
 
 class Menu extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      selectedGame: null
-    };
-  }
-
-  onGameSelect(game) {
-    this.setState({ selectedGame: game });
   }
 
   renderGame(game) {
@@ -43,7 +34,7 @@ class Menu extends Component {
     const menu = this.props.games.map(game => {
       return (
         <div key={game.id} className="col-12 col-md-5 m-1">
-          <Card onClick={() => this.onGameSelect(game)}>
+          <Card onClick={() => this.props.onClick(game.id)}>
             <CardImg width="100%" src={game.image} alt={game.name} />
             <CardImgOverlay>
               <CardTitle>{game.name}</CardTitle>
@@ -68,10 +59,7 @@ class Menu extends Component {
     return (
       <div className="container">
         <div className="row">{menu}</div>
-        <div className="row">
-          {" "}
-          <GameDetail game={this.state.selectedGame} />
-        </div>
+        <div className="row"> </div>
       </div>
     );
   }
