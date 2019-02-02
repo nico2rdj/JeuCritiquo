@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer(props) {
   return (
@@ -6,37 +7,39 @@ function Footer(props) {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-4 offset-1 col-sm-2">
-            <h5>Links</h5>
+            <h5>Liens utiles</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#">Home</a>
+                <Link to="/home">Acceuil</Link>
               </li>
               <li>
-                <a href="#">About</a>
+                <Link to="/about">A propos</Link>
               </li>
               <li>
-                <a href="#">Menu</a>
+                <Link to="/menu">Menu</Link>
               </li>
               <li>
-                <a href="contactus.html">Contact</a>
+                <Link to="/contactus">Contact</Link>
               </li>
             </ul>
           </div>
           <div className="col-7 col-sm-5">
-            <h5>Our Address</h5>
+            <h5>Notre adresse</h5>
             <address>
-              121, Clear Water Bay Road
+              21 jump street
               <br />
-              Clear Water Bay, Kowloon
+              Pasadena, Los Angeles
               <br />
-              HONG KONG
+              Bordeaux
               <br />
-              <i className="fa fa-phone fa-lg" />: +852 1234 5678
+              <i className="fa fa-phone fa-lg" />: +33 6 88 91 92 64
               <br />
               <i className="fa fa-fax fa-lg" />: +852 8765 4321
               <br />
               <i className="fa fa-envelope fa-lg" />:{" "}
-              <a href="mailto:confusion@food.net">confusion@food.net</a>
+              <a href="mailto:nicolas.martin0205@gmail.com">
+                nicolas.martin0205@gmail.com
+              </a>
             </address>
           </div>
           <div className="col-12 col-sm-4 align-self-center">
@@ -79,7 +82,7 @@ function Footer(props) {
         </div>
         <div className="row justify-content-center">
           <div className="col-auto">
-            <p>© Copyright 2018 Ristorante Con Fusion</p>
+            <p>© Copyright 2019 Helios Corporation</p>
           </div>
         </div>
       </div>
