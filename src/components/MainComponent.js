@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
 import Menu from "./MenuComponent";
 import GameDetail from "./GamedetailComponent";
+import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 import { GAMES } from "../shared/games";
 
 class Main extends Component {
@@ -21,11 +22,7 @@ class Main extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Jeu Critiquo</NavbarBrand>
-          </div>
-        </Navbar>
+        <Header />
         <Menu
           games={this.state.games}
           onClick={gameId => this.onGameSelect(gameId)}
@@ -37,6 +34,7 @@ class Main extends Component {
             )[0]
           }
         />
+        <Footer />
       </div>
     );
   }
