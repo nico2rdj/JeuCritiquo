@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Media,
   Card,
@@ -9,11 +9,7 @@ import {
   CardTitle
 } from "reactstrap";
 
-class Menu extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+/*
   renderGame(game) {
     if (game != null) {
       return (
@@ -29,40 +25,45 @@ class Menu extends Component {
       return <div />;
     }
   }
+  */
 
-  render() {
-    const menu = this.props.games.map(game => {
-      return (
-        <div key={game.id} className="col-12 col-md-5 m-1">
-          <Card onClick={() => this.props.onClick(game.id)}>
-            <CardImg width="100%" src={game.image} alt={game.name} />
-            <CardImgOverlay>
-              <CardTitle>{game.name}</CardTitle>
-            </CardImgOverlay>
-          </Card>
+function RenderMenuItem({ game, onClick }) {
+  return (
+    <Card onClick={() => onClick(game.id)}>
+      <CardImg width="100%" src={game.image} alt={game.name} />
+      <CardImgOverlay>
+        <CardTitle>{game.name}</CardTitle>
+      </CardImgOverlay>
+    </Card>
+  );
+}
 
-          {/*
-          <Media tag="li">
-            <Media left middle>
-              <Media object src={game.image} alt={game.name} />
-            </Media>
-            <Media body className="ml-5">
-              <Media heading>{game.name}</Media>
-              <p>{game.description}</p>
-            </Media>
-          </Media>
-        */}
-        </div>
-      );
-    });
-
+const Menu = props => {
+  const menu = props.games.map(game => {
     return (
-      <div className="container">
-        <div className="row">{menu}</div>
-        <div className="row"> </div>
+      <div key={game.id} className="col-12 col-md-5 m-1">
+        <RenderMenuItem game={game} onClick={props.onClick} />
+        {/*
+            <Media tag="li">
+              <Media left middle>
+                <Media object src={game.image} alt={game.name} />
+              </Media>
+              <Media body className="ml-5">
+                <Media heading>{game.name}</Media>
+                <p>{game.description}</p>
+              </Media>
+            </Media>
+          */}
       </div>
     );
-  }
-}
+  });
+
+  return (
+    <div className="container">
+      <div className="row">{menu}</div>
+      <div className="row"> </div>
+    </div>
+  );
+};
 
 export default Menu;

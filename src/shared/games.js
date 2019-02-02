@@ -19,29 +19,28 @@ export const GAMES = [
       {
         id: 1,
         rating: 4,
-        comment:
-          "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+        comment: "Pas sans risk!",
         author: "Paul McVites",
         date: "2014-09-05T17:57:28.556094Z"
       },
       {
         id: 2,
         rating: 3,
-        comment: "Eat it, just eat it!",
+        comment: "Le plus moderne des classiques!",
         author: "Michael Jaikishan",
         date: "2015-02-13T17:57:28.556094Z"
       },
       {
         id: 3,
         rating: 4,
-        comment: "Ultimate, Reaching for the stars!",
+        comment: "Surtout ne pas prendre de risque !",
         author: "Ringo Starry",
         date: "2013-12-02T17:57:28.556094Z"
       },
       {
         id: 4,
         rating: 2,
-        comment: "It's your birthday, we're gonna party!",
+        comment: "Trop long!",
         author: "25 Cent",
         date: "2011-12-02T17:57:28.556094Z"
       }
