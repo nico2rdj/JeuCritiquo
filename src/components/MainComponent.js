@@ -4,7 +4,14 @@ import GameDetail from "./GamedetailComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
+import Contact from "./ContactComponent";
+
+/* import db */
 import { GAMES } from "../shared/games";
+import { COMMENTS } from "../shared/comments";
+import { LEADERS } from "../shared/leaders";
+import { PROMOTIONS } from "../shared/promotions";
+
 import { Switch, Route, Redirect } from "react-router-dom";
 
 class Main extends Component {
@@ -12,7 +19,10 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      games: GAMES
+      games: GAMES,
+      comments: COMMENTS,
+      leaders: LEADERS,
+      promotions: PROMOTIONS
     };
   }
 
@@ -22,7 +32,15 @@ class Main extends Component {
 
   render() {
     const HomePage = () => {
-      return <Home />;
+      return (
+        <Home
+          game={this.state.games.filter(game => game.featured)[0]}
+          promotion={
+            this.state.promotions.filter(promotion => promotion.featured)[0]
+          }
+          leader={this.state.leaders.filter(leader => leader.featured)[0]}
+        />
+      );
     };
 
     return (
@@ -35,6 +53,7 @@ class Main extends Component {
             path="/menu"
             component={() => <Menu games={this.state.games} />}
           />
+          <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" />
         </Switch>
         <Footer />
