@@ -5,6 +5,7 @@ import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import Contact from "./ContactComponent";
+import About from "./AboutusComponent";
 
 /* import db */
 import { GAMES } from "../shared/games";
@@ -43,6 +44,10 @@ class Main extends Component {
       );
     };
 
+    const AboutPage = () => {
+      return <About leaders={this.state.leaders} />;
+    };
+
     const GameWithId = ({ match }) => {
       return (
         <GameDetail
@@ -70,6 +75,7 @@ class Main extends Component {
           />
           <Route path="/menu/:gameId" component={GameWithId} />
           <Route exact path="/contactus" component={Contact} />
+          <Route exact path="/aboutus" component={AboutPage} />
           <Redirect to="/home" />
         </Switch>
         <Footer />

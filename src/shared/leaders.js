@@ -11,7 +11,7 @@ export const LEADERS = [
   },
   {
     id: 1,
-    name: "Dhanasekaran Witherspoon",
+    name: "Bob",
     image: "/assets/images/elonMusk.png",
     designation: "Chief Food Officer",
     abbr: "CFO",
@@ -21,7 +21,7 @@ export const LEADERS = [
   },
   {
     id: 2,
-    name: "Agumbe Tang",
+    name: "Jo",
     image: "/assets/images/elonMusk.png",
     designation: "Chief Taste Officer",
     abbr: "CTO",
