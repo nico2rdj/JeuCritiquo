@@ -3,7 +3,7 @@ export const COMMENTS = [
     id: 0,
     gameId: 0,
     rating: 5,
-    comment: "Imagine all the eatables, living in conFusion!",
+    comment: "Super jeu !",
     author: "John Lemon",
     date: "2012-10-16T17:57:28.556094Z"
   },
@@ -11,8 +11,7 @@ export const COMMENTS = [
     id: 1,
     gameId: 0,
     rating: 4,
-    comment:
-      "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+    comment: "Un classique à l'époque",
     author: "Paul McVites",
     date: "2014-09-05T17:57:28.556094Z"
   },
@@ -20,7 +19,7 @@ export const COMMENTS = [
     id: 2,
     gameId: 0,
     rating: 3,
-    comment: "Eat it, just eat it!",
+    comment: "jeu de conquête simple et efficace",
     author: "Michael Jaikishan",
     date: "2015-02-13T17:57:28.556094Z"
   },
@@ -28,7 +27,7 @@ export const COMMENTS = [
     id: 3,
     gameId: 0,
     rating: 4,
-    comment: "Ultimate, Reaching for the stars!",
+    comment: "Le jeu de baston stratégique classique!",
     author: "Ringo Starry",
     date: "2013-12-02T17:57:28.556094Z"
   },
@@ -36,7 +35,7 @@ export const COMMENTS = [
     id: 4,
     gameId: 0,
     rating: 2,
-    comment: "It's your birthday, we're gonna party!",
+    comment: "Surtout ne pas prendre de risque !",
     author: "25 Cent",
     date: "2011-12-02T17:57:28.556094Z"
   },
@@ -44,7 +43,7 @@ export const COMMENTS = [
     id: 5,
     gameId: 1,
     rating: 5,
-    comment: "Imagine all the eatables, living in conFusion!",
+    comment: "Hum Hum hun de plus!",
     author: "John Lemon",
     date: "2012-10-16T17:57:28.556094Z"
   },
@@ -52,8 +51,7 @@ export const COMMENTS = [
     id: 6,
     gameId: 1,
     rating: 4,
-    comment:
-      "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+    comment: "Huns... peu répétitif!",
     author: "Paul McVites",
     date: "2014-09-05T17:57:28.556094Z"
   },
@@ -61,7 +59,7 @@ export const COMMENTS = [
     id: 7,
     gameId: 1,
     rating: 3,
-    comment: "Eat it, just eat it!",
+    comment: "Je les ai sentis passer",
     author: "Michael Jaikishan",
     date: "2015-02-13T17:57:28.556094Z"
   },
@@ -69,7 +67,7 @@ export const COMMENTS = [
     id: 8,
     gameId: 1,
     rating: 4,
-    comment: "Ultimate, Reaching for the stars!",
+    comment: "Ne pas confondre un nain avec un hun!",
     author: "Ringo Starry",
     date: "2013-12-02T17:57:28.556094Z"
   },
@@ -77,7 +75,7 @@ export const COMMENTS = [
     id: 9,
     gameId: 1,
     rating: 2,
-    comment: "It's your birthday, we're gonna party!",
+    comment: "pas mal mais pas pour moi!",
     author: "25 Cent",
     date: "2011-12-02T17:57:28.556094Z"
   },
@@ -85,7 +83,7 @@ export const COMMENTS = [
     id: 10,
     gameId: 2,
     rating: 5,
-    comment: "Imagine all the eatables, living in conFusion!",
+    comment: "Nom de code : Jouez !",
     author: "John Lemon",
     date: "2012-10-16T17:57:28.556094Z"
   },
@@ -93,8 +91,7 @@ export const COMMENTS = [
     id: 11,
     gameId: 2,
     rating: 4,
-    comment:
-      "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+    comment: "Simple et efficace",
     author: "Paul McVites",
     date: "2014-09-05T17:57:28.556094Z"
   },
@@ -102,7 +99,7 @@ export const COMMENTS = [
     id: 12,
     gameId: 2,
     rating: 3,
-    comment: "Eat it, just eat it!",
+    comment: "A la recherche du mot perdu",
     author: "Michael Jaikishan",
     date: "2015-02-13T17:57:28.556094Z"
   },
@@ -110,7 +107,7 @@ export const COMMENTS = [
     id: 13,
     gameId: 2,
     rating: 4,
-    comment: "Ultimate, Reaching for the stars!",
+    comment: "Erreur ludique",
     author: "Ringo Starry",
     date: "2013-12-02T17:57:28.556094Z"
   },
@@ -118,7 +115,7 @@ export const COMMENTS = [
     id: 14,
     gameId: 2,
     rating: 2,
-    comment: "It's your birthday, we're gonna party!",
+    comment: "Ni bon ni mauvais ...",
     author: "25 Cent",
     date: "2011-12-02T17:57:28.556094Z"
   },
@@ -126,7 +123,7 @@ export const COMMENTS = [
     id: 15,
     gameId: 3,
     rating: 5,
-    comment: "Imagine all the eatables, living in conFusion!",
+    comment: "Super géniale !",
     author: "John Lemon",
     date: "2012-10-16T17:57:28.556094Z"
   },
@@ -134,8 +131,7 @@ export const COMMENTS = [
     id: 16,
     gameId: 3,
     rating: 4,
-    comment:
-      "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+    comment: "Monstrueux! Super soirée mdr",
     author: "Paul McVites",
     date: "2014-09-05T17:57:28.556094Z"
   },
@@ -143,7 +139,7 @@ export const COMMENTS = [
     id: 17,
     gameId: 3,
     rating: 3,
-    comment: "Eat it, just eat it!",
+    comment: "Pas mal pour pecho!",
     author: "Michael Jaikishan",
     date: "2015-02-13T17:57:28.556094Z"
   },
@@ -151,7 +147,7 @@ export const COMMENTS = [
     id: 18,
     gameId: 3,
     rating: 4,
-    comment: "Ultimate, Reaching for the stars!",
+    comment: "Très moyen comme jeu !",
     author: "Ringo Starry",
     date: "2013-12-02T17:57:28.556094Z"
   },
@@ -159,7 +155,7 @@ export const COMMENTS = [
     id: 19,
     gameId: 3,
     rating: 2,
-    comment: "It's your birthday, we're gonna party!",
+    comment: "A fuir !",
     author: "25 Cent",
     date: "2011-12-02T17:57:28.556094Z"
   }

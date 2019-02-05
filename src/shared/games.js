@@ -2,7 +2,7 @@ export const GAMES = [
   {
     id: 0,
     name: "Risk",
-    image: "assets/images/risk.jpeg",
+    image: "/assets/images/risk.jpeg",
     category: "strategie",
     label: "Hot",
     price: "4.99",
@@ -13,7 +13,7 @@ export const GAMES = [
   {
     id: 1,
     name: "Codenames",
-    image: "assets/images/codeNames.png",
+    image: "/assets/images/codeNames.png",
     category: "appetizer",
     label: "",
     price: "1.99",
@@ -24,7 +24,7 @@ export const GAMES = [
   {
     id: 2,
     name: "Huns",
-    image: "assets/images/huns.png",
+    image: "/assets/images/huns.png",
     category: "appetizer",
     label: "New",
     price: "1.99",
@@ -35,7 +35,7 @@ export const GAMES = [
   {
     id: 3,
     name: "The mind",
-    image: "assets/images/theMind.png",
+    image: "/assets/images/theMind.png",
     category: "dessert",
     label: "",
     price: "2.99",

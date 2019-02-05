@@ -6,8 +6,11 @@ import {
   CardImgOverlay,
   CardBody,
   CardText,
-  CardTitle
+  CardTitle,
+  Breadcrumb,
+  BreadcrumbItem
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function RenderGame({ game }) {
   if (game != null) {
@@ -25,10 +28,8 @@ function RenderGame({ game }) {
   }
 }
 
-function RenderComments({ game }) {
-  if (game != null) {
-    const comments = game.comments;
-
+function RenderComments({ comments }) {
+  if (comments != null) {
     return (
       <div>
         <h4>
@@ -56,12 +57,29 @@ function RenderComments({ game }) {
 
 const GameDetail = props => {
   return (
-    <div className="row">
-      <div className="col-12 col-md-5 mt-1">
-        <RenderGame game={props.game} />
+    <div className="container">
+      <div className="row">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/home">Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Link to="/menu">Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{props.game.name}</BreadcrumbItem>
+        </Breadcrumb>
+        <div className="col-12">
+          <h3>{props.game.name}</h3>
+          <hr />
+        </div>
       </div>
-      <div className="col-12 col-md-5 mt-1">
-        <RenderComments game={props.game} />
+      <div className="row">
+        <div className="col-12 col-md-5 mt-1">
+          <RenderGame game={props.game} />
+        </div>
+        <div className="col-12 col-md-5 mt-1">
+          <RenderComments comments={props.comments} />
+        </div>
       </div>
     </div>
   );

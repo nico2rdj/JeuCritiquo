@@ -43,6 +43,21 @@ class Main extends Component {
       );
     };
 
+    const GameWithId = ({ match }) => {
+      return (
+        <GameDetail
+          game={
+            this.state.games.filter(
+              game => game.id === parseInt(match.params.gameId, 10)
+            )[0]
+          }
+          comments={this.state.comments.filter(
+            comment => comment.gameId === parseInt(match.params.gameId, 10)
+          )}
+        />
+      );
+    };
+
     return (
       <div className="App">
         <Header />
@@ -53,6 +68,7 @@ class Main extends Component {
             path="/menu"
             component={() => <Menu games={this.state.games} />}
           />
+          <Route path="/menu/:gameId" component={GameWithId} />
           <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" />
         </Switch>
