@@ -6,25 +6,23 @@ import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutusComponent";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-/* import db */
-import { GAMES } from "../shared/games";
-import { COMMENTS } from "../shared/comments";
-import { LEADERS } from "../shared/leaders";
-import { PROMOTIONS } from "../shared/promotions";
-
-import { Switch, Route, Redirect } from "react-router-dom";
+const mapStateToProps = state => {
+  return {
+    games: state.games,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+  };
+};
 
 class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      games: GAMES,
-      comments: COMMENTS,
-      leaders: LEADERS,
-      promotions: PROMOTIONS
-    };
+    this.state = {};
   }
 
   onGameSelect(gameId) {
@@ -35,28 +33,28 @@ class Main extends Component {
     const HomePage = () => {
       return (
         <Home
-          game={this.state.games.filter(game => game.featured)[0]}
+          game={this.props.games.filter(game => game.featured)[0]}
           promotion={
-            this.state.promotions.filter(promotion => promotion.featured)[0]
+            this.props.promotions.filter(promotion => promotion.featured)[0]
           }
-          leader={this.state.leaders.filter(leader => leader.featured)[0]}
+          leader={this.props.leaders.filter(leader => leader.featured)[0]}
         />
       );
     };
 
     const AboutPage = () => {
-      return <About leaders={this.state.leaders} />;
+      return <About leaders={this.props.leaders} />;
     };
 
     const GameWithId = ({ match }) => {
       return (
         <GameDetail
           game={
-            this.state.games.filter(
+            this.props.games.filter(
               game => game.id === parseInt(match.params.gameId, 10)
             )[0]
           }
-          comments={this.state.comments.filter(
+          comments={this.props.comments.filter(
             comment => comment.gameId === parseInt(match.params.gameId, 10)
           )}
         />
@@ -84,4 +82,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));
