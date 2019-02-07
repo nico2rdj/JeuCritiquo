@@ -6,7 +6,15 @@ import {
   Nav,
   NavbarToggler,
   Collapse,
-  NavItem
+  NavItem,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Input,
+  Label
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
@@ -14,13 +22,34 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isNavOpen: false
+      isNavOpen: false,
+      isModalOpen: false
     };
     this.toggleNav = this.toggleNav.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   toggleNav() {
     this.setState({ isNavOpen: !this.state.isNavOpen });
+  }
+
+  toggleModal() {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  }
+
+  handleLogin(event) {
+    /* on agit directement sur le dom */
+    this.toggleModal();
+    alert(
+      "Pseudo: " +
+        this.username.value +
+        " Mot de passe: " +
+        this.password.value +
+        " Se souvenir: " +
+        this.remember.checked
+    );
+    event.preventDefault();
   }
 
   render() {
@@ -61,6 +90,13 @@ class Header extends Component {
                   </NavLink>
                 </NavItem>
               </Nav>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <Button outline onClick={this.toggleModal}>
+                    <span className="fa fa-sign-in fa-lg" /> Connexion
+                  </Button>
+                </NavItem>
+              </Nav>
             </Collapse>
           </div>
         </Navbar>
@@ -74,6 +110,44 @@ class Header extends Component {
             </div>
           </div>
         </Jumbotron>
+        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>Connexion</ModalHeader>
+          <ModalBody>
+            <Form onSubmit={this.handleLogin}>
+              <FormGroup>
+                <Label htmlFor="username">Pseudo</Label>
+                <Input
+                  type="text"
+                  id="username"
+                  name="username"
+                  innerRef={input => (this.username = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="password">Mot de passe</Label>
+                <Input
+                  type="password"
+                  id="password"
+                  name="password"
+                  innerRef={input => (this.password = input)}
+                />
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    name="remember"
+                    innerRef={input => (this.remember = input)}
+                  />
+                  Se souvenir
+                </Label>
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Se connecter
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
       </React.Fragment>
     );
   }
