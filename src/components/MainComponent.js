@@ -69,7 +69,7 @@ class Main extends Component {
           <Route
             exact
             path="/menu"
-            component={() => <Menu games={this.state.games} />}
+            component={() => <Menu games={this.props.games} />}
           />
           <Route path="/menu/:gameId" component={GameWithId} />
           <Route exact path="/contactus" component={Contact} />
