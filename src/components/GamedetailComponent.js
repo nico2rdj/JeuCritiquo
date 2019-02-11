@@ -38,8 +38,13 @@ class CommentForm extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log("Current State is: " + JSON.stringify(values));
-    alert("Current State is: " + JSON.stringify(values));
+    this.toggleModal();
+    this.props.addComment(
+      this.props.gameId,
+      values.rating,
+      values.name,
+      values.comment
+    );
   }
 
   toggleModal() {
@@ -169,7 +174,7 @@ function RenderGame({ game }) {
   }
 }
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, gameId }) {
   if (comments != null) {
     return (
       <div>
@@ -189,6 +194,7 @@ function RenderComments({ comments }) {
             </p>
           </div>
         ))}
+        <CommentForm addComment={addComment} gameId={gameId} />
       </div>
     );
   } else {
@@ -219,8 +225,11 @@ const GameDetail = props => {
           <RenderGame game={props.game} />
         </div>
         <div className="col-12 col-md-5 mt-1">
-          <RenderComments comments={props.comments} />
-          <CommentForm />
+          <RenderComments
+            comments={props.comments}
+            addComment={props.addComment}
+            gameId={props.game.id}
+          />
         </div>
       </div>
     </div>
