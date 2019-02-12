@@ -9,6 +9,7 @@ import About from "./AboutusComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addComment, fetchGames } from "../redux/ActionCreators";
+import { actions } from "react-redux-form";
 
 const mapStateToProps = state => {
   return {
@@ -24,6 +25,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addComment(gameId, rating, author, comment)),
   fetchGames: () => {
     dispatch(fetchGames());
+  },
+  resetFeedbackForm: () => {
+    dispatch(actions.reset("feedback"));
   }
 });
 
@@ -90,7 +94,13 @@ class Main extends Component {
             component={() => <Menu games={this.props.games} />}
           />
           <Route path="/menu/:gameId" component={GameWithId} />
-          <Route exact path="/contactus" component={Contact} />
+          <Route
+            exact
+            path="/contactus"
+            component={() => (
+              <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+            )}
+          />
           <Route exact path="/aboutus" component={AboutPage} />
           <Redirect to="/home" />
         </Switch>
