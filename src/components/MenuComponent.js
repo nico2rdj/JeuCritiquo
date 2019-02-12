@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 /*
   renderGame(game) {
@@ -35,7 +36,7 @@ function RenderMenuItem({ game, onClick }) {
   return (
     <Card>
       <Link to={`/menu/${game.id}`}>
-        <CardImg width="100%" src={game.image} alt={game.name} />
+        <CardImg width="100%" src={baseUrl + game.image} alt={game.name} />
         <CardImgOverlay>
           <CardTitle>{game.name}</CardTitle>
         </CardImgOverlay>

@@ -8,7 +8,12 @@ import Contact from "./ContactComponent";
 import About from "./AboutusComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { addComment, fetchGames } from "../redux/ActionCreators";
+import {
+  addComment,
+  fetchGames,
+  fetchComments,
+  fetchPromos
+} from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 
 const mapStateToProps = state => {
@@ -28,6 +33,12 @@ const mapDispatchToProps = dispatch => ({
   },
   resetFeedbackForm: () => {
     dispatch(actions.reset("feedback"));
+  },
+  fetchComments: () => {
+    dispatch(fetchComments());
+  },
+  fetchPromos: () => {
+    dispatch(fetchPromos());
   }
 });
 
@@ -40,6 +51,8 @@ class Main extends Component {
 
   componentDidMount() {
     this.props.fetchGames();
+    this.props.fetchComments();
+    this.props.fetchPromos();
   }
 
   onGameSelect(gameId) {
@@ -54,8 +67,12 @@ class Main extends Component {
           gamesLoading={this.props.games.isLoading}
           gamesErrMess={this.props.games.errMess}
           promotion={
-            this.props.promotions.filter(promotion => promotion.featured)[0]
+            this.props.promotions.promotions.filter(
+              promotion => promotion.featured
+            )[0]
           }
+          promosLoading={this.props.promotions.isLoading}
+          promosErrMess={this.props.promotions.errMess}
           leader={this.props.leaders.filter(leader => leader.featured)[0]}
         />
       );
@@ -75,9 +92,10 @@ class Main extends Component {
           }
           isLoading={this.props.games.isLoading}
           errMess={this.props.games.errMess}
-          comments={this.props.comments.filter(
+          comments={this.props.comments.comments.filter(
             comment => comment.gameId === parseInt(match.params.gameId, 10)
           )}
+          commentsErrMess={this.props.comments.errMess}
           addComment={this.props.addComment}
         />
       );

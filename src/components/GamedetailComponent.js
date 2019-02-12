@@ -22,6 +22,7 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -163,7 +164,7 @@ function RenderGame({ game }) {
   if (game != null) {
     return (
       <Card>
-        <CardImg width="100%" src={game.image} alt={game.name} />
+        <CardImg width="100%" src={baseUrl + game.image} alt={game.name} />
         <CardBody>
           <CardTitle>{game.name}</CardTitle>
           <CardText>{game.description}</CardText>
