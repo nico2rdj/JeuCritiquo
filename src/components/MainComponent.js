@@ -8,7 +8,7 @@ import Contact from "./ContactComponent";
 import About from "./AboutusComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { addComment } from "../redux/ActionCreators";
+import { addComment, fetchGames } from "../redux/ActionCreators";
 
 const mapStateToProps = state => {
   return {
@@ -21,7 +21,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   addComment: (gameId, rating, author, comment) =>
-    dispatch(addComment(gameId, rating, author, comment))
+    dispatch(addComment(gameId, rating, author, comment)),
+  fetchGames: () => {
+    dispatch(fetchGames());
+  }
 });
 
 class Main extends Component {
@@ -29,6 +32,10 @@ class Main extends Component {
     super(props);
 
     this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.fetchGames();
   }
 
   onGameSelect(gameId) {
@@ -39,7 +46,9 @@ class Main extends Component {
     const HomePage = () => {
       return (
         <Home
-          game={this.props.games.filter(game => game.featured)[0]}
+          game={this.props.games.games.filter(game => game.featured)[0]}
+          gamesLoading={this.props.games.isLoading}
+          gamesErrMess={this.props.games.errMess}
           promotion={
             this.props.promotions.filter(promotion => promotion.featured)[0]
           }
@@ -56,10 +65,12 @@ class Main extends Component {
       return (
         <GameDetail
           game={
-            this.props.games.filter(
+            this.props.games.games.filter(
               game => game.id === parseInt(match.params.gameId, 10)
             )[0]
           }
+          isLoading={this.props.games.isLoading}
+          errMess={this.props.games.errMess}
           comments={this.props.comments.filter(
             comment => comment.gameId === parseInt(match.params.gameId, 10)
           )}

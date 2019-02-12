@@ -11,6 +11,7 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
 /*
   renderGame(game) {
@@ -45,7 +46,7 @@ function RenderMenuItem({ game, onClick }) {
 }
 
 const Menu = props => {
-  const menu = props.games.map(game => {
+  const menu = props.games.games.map(game => {
     return (
       <div key={game.id} className="col-12 col-md-5 m-1">
         <RenderMenuItem game={game} />
@@ -64,23 +65,40 @@ const Menu = props => {
     );
   });
 
-  return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/home">Home</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>Menu</BreadcrumbItem>
-        </Breadcrumb>
-        <div className="col-12">
-          <h3>Menu</h3>
-          <hr />
+  if (props.games.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
         </div>
       </div>
-      <div className="row">{menu}</div>
-    </div>
-  );
+    );
+  } else if (props.games.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{props.games.errMess}</h4>
+        </div>
+      </div>
+    );
+  } else
+    return (
+      <div className="container">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/home">Home</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>Menu</BreadcrumbItem>
+          </Breadcrumb>
+          <div className="col-12">
+            <h3>Menu</h3>
+            <hr />
+          </div>
+        </div>
+        <div className="row">{menu}</div>
+      </div>
+    );
 };
 
 export default Menu;
