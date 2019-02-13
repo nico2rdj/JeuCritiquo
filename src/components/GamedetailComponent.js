@@ -41,7 +41,7 @@ class CommentForm extends React.Component {
 
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(
+    this.props.postComment(
       this.props.gameId,
       values.rating,
       values.name,
@@ -176,7 +176,7 @@ function RenderGame({ game }) {
   }
 }
 
-function RenderComments({ comments, addComment, gameId }) {
+function RenderComments({ comments, postComment, gameId }) {
   if (comments != null) {
     return (
       <div>
@@ -196,7 +196,7 @@ function RenderComments({ comments, addComment, gameId }) {
             </p>
           </div>
         ))}
-        <CommentForm addComment={addComment} gameId={gameId} />
+        <CommentForm postComment={postComment} gameId={gameId} />
       </div>
     );
   } else {
@@ -246,7 +246,7 @@ const GameDetail = props => {
           <div className="col-12 col-md-5 mt-1">
             <RenderComments
               comments={props.comments}
-              addComment={props.addComment}
+              postComment={props.postComment}
               gameId={props.game.id}
             />
           </div>

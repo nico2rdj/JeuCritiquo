@@ -9,7 +9,7 @@ import About from "./AboutusComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  addComment,
+  postComment,
   fetchGames,
   fetchComments,
   fetchPromos
@@ -26,8 +26,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (gameId, rating, author, comment) =>
-    dispatch(addComment(gameId, rating, author, comment)),
+  postComment: (gameId, rating, author, comment) =>
+    dispatch(postComment(gameId, rating, author, comment)),
   fetchGames: () => {
     dispatch(fetchGames());
   },
@@ -96,7 +96,7 @@ class Main extends Component {
             comment => comment.gameId === parseInt(match.params.gameId, 10)
           )}
           commentsErrMess={this.props.comments.errMess}
-          addComment={this.props.addComment}
+          postComment={this.props.postComment}
         />
       );
     };
