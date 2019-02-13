@@ -15,6 +15,7 @@ import {
   fetchPromos
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const mapStateToProps = state => {
   return {
@@ -104,24 +105,32 @@ class Main extends Component {
     return (
       <div className="App">
         <Header />
-        <Switch>
-          <Route path="/home" component={HomePage} />
-          <Route
-            exact
-            path="/menu"
-            component={() => <Menu games={this.props.games} />}
-          />
-          <Route path="/menu/:gameId" component={GameWithId} />
-          <Route
-            exact
-            path="/contactus"
-            component={() => (
-              <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
-            )}
-          />
-          <Route exact path="/aboutus" component={AboutPage} />
-          <Redirect to="/home" />
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition
+            key={this.props.location.key}
+            classNames="page"
+            timeout={300}
+          >
+            <Switch>
+              <Route path="/home" component={HomePage} />
+              <Route
+                exact
+                path="/menu"
+                component={() => <Menu games={this.props.games} />}
+              />
+              <Route path="/menu/:gameId" component={GameWithId} />
+              <Route
+                exact
+                path="/contactus"
+                component={() => (
+                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                )}
+              />
+              <Route exact path="/aboutus" component={AboutPage} />
+              <Redirect to="/home" />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );
