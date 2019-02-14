@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -163,13 +164,20 @@ class CommentForm extends React.Component {
 function RenderGame({ game }) {
   if (game != null) {
     return (
-      <Card>
-        <CardImg width="100%" src={baseUrl + game.image} alt={game.name} />
-        <CardBody>
-          <CardTitle>{game.name}</CardTitle>
-          <CardText>{game.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        transformProps={{
+          exitTransform: "scale(0.5) translateY(-50%)"
+        }}
+      >
+        <Card>
+          <CardImg width="100%" src={baseUrl + game.image} alt={game.name} />
+          <CardBody>
+            <CardTitle>{game.name}</CardTitle>
+            <CardText>{game.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     );
   } else {
     return <div />;
@@ -183,19 +191,23 @@ function RenderComments({ comments, postComment, gameId }) {
         <h4>
           <strong>Commentaires</strong>
         </h4>
-        {comments.map(comment => (
-          <div key={comment.id}>
-            <p>{comment.comment}</p>
-            <p>
-              --{comment.author},
-              {new Intl.DateTimeFormat("en-us", {
-                year: "numeric",
-                month: "short",
-                day: "2-digit"
-              }).format(new Date(Date.parse(comment.date)))}
-            </p>
-          </div>
-        ))}
+        <Stagger in>
+          {comments.map(comment => (
+            <Fade in>
+              <div key={comment.id}>
+                <p>{comment.comment}</p>
+                <p>
+                  --{comment.author},
+                  {new Intl.DateTimeFormat("en-us", {
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit"
+                  }).format(new Date(Date.parse(comment.date)))}
+                </p>
+              </div>
+            </Fade>
+          ))}
+        </Stagger>
         <CommentForm postComment={postComment} gameId={gameId} />
       </div>
     );
