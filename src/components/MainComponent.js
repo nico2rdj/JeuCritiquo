@@ -6,13 +6,16 @@ import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutusComponent";
+import SearchEvent from "./SearchEventComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   postComment,
+  postFeedback,
   fetchGames,
   fetchComments,
-  fetchPromos
+  fetchPromos,
+  fetchLeaders
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -29,6 +32,26 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   postComment: (gameId, rating, author, comment) =>
     dispatch(postComment(gameId, rating, author, comment)),
+  postFeedback: (
+    firstname,
+    lastname,
+    telnum,
+    email,
+    agree,
+    contactType,
+    message
+  ) =>
+    dispatch(
+      postFeedback(
+        firstname,
+        lastname,
+        telnum,
+        email,
+        agree,
+        contactType,
+        message
+      )
+    ),
   fetchGames: () => {
     dispatch(fetchGames());
   },
@@ -40,6 +63,9 @@ const mapDispatchToProps = dispatch => ({
   },
   fetchPromos: () => {
     dispatch(fetchPromos());
+  },
+  fetchLeaders: () => {
+    dispatch(fetchLeaders());
   }
 });
 
@@ -54,6 +80,7 @@ class Main extends Component {
     this.props.fetchGames();
     this.props.fetchComments();
     this.props.fetchPromos();
+    this.props.fetchLeaders();
   }
 
   onGameSelect(gameId) {
@@ -74,7 +101,11 @@ class Main extends Component {
           }
           promosLoading={this.props.promotions.isLoading}
           promosErrMess={this.props.promotions.errMess}
-          leader={this.props.leaders.filter(leader => leader.featured)[0]}
+          leader={
+            this.props.leaders.leaders.filter(leader => leader.featured)[0]
+          }
+          leadersLoading={this.props.leaders.isLoading}
+          leadersErrMess={this.props.leaders.errMess}
         />
       );
     };
@@ -123,10 +154,14 @@ class Main extends Component {
                 exact
                 path="/contactus"
                 component={() => (
-                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                  <Contact
+                    postFeedback={this.props.postFeedback}
+                    resetFeedbackForm={this.props.resetFeedbackForm}
+                  />
                 )}
               />
               <Route exact path="/aboutus" component={AboutPage} />
+              <Route exact path="/event" component={() => <SearchEvent />} />
               <Redirect to="/home" />
             </Switch>
           </CSSTransition>

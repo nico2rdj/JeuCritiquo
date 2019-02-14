@@ -14,6 +14,9 @@ import {
   Form,
   FormGroup,
   Input,
+  InputGroup,
+  InputGroupText,
+  InputGroupAddon,
   Label
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
@@ -56,49 +59,64 @@ class Header extends Component {
     return (
       <React.Fragment>
         <Navbar color="faded" light expand="md">
-          <div className="container">
-            <NavbarToggler onClick={this.toggleNav} />
-            <NavbarBrand className="mr-auto mt-3" href="/">
-              <img
-                src="assets/images/JeuCritiquo_v0.png"
-                height="90"
-                width="300"
-                alt="Jeu Critiquo"
-              />
-            </NavbarBrand>
-            <Collapse isOpen={this.state.isNavOpen} navbar>
-              <Nav navbar className="ml-auto">
-                <NavItem>
-                  <NavLink className="nav-link" to="/home">
-                    <span className="fa fa-home fa-lg" /> <h4>Acceuil</h4>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" to="/aboutus">
-                    <span className="fa fa-info fa-lg" /> <h4>A propos</h4>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" to="/menu">
-                    <span className="fa fa-list fa-lg" /> <h4>Menu</h4>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" to="/contactus">
-                    <span className="fa fa-address-card black fa-lg" />{" "}
-                    <h4>Nous contacter</h4>
-                  </NavLink>
-                </NavItem>
-              </Nav>
-              <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <Button outline onClick={this.toggleModal}>
-                    <span className="fa fa-sign-in fa-lg" /> Connexion
-                  </Button>
-                </NavItem>
-              </Nav>
-            </Collapse>
+          <NavbarToggler onClick={this.toggleNav} />
+          <NavbarBrand className="ml-auto mt-3" href="/">
+            <img
+              src="assets/images/JeuCritiquo_v0.png"
+              height="90"
+              width="280"
+              alt="Jeu Critiquo"
+            />
+          </NavbarBrand>
+
+          <div className="col-3">
+            <InputGroup>
+              <InputGroupAddon addonType="prepend">
+                <Button>
+                  <span className="fa fa-search fa-lg" />
+                </Button>
+              </InputGroupAddon>
+              <Input placeholder="Rechercher un jeu de société" />
+            </InputGroup>
           </div>
+
+          <Collapse isOpen={this.state.isNavOpen} navbar>
+            <Nav navbar className="ml-auto">
+              <NavItem>
+                <NavLink className="nav-link" to="/home">
+                  <span className="fa fa-home fa-lg" /> <h4>Acceuil</h4>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/contactus">
+                  <span className="fa fa-address-card black fa-lg" />
+                  <h4>Nous contacter</h4>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/aboutus">
+                  <span className="fa fa-info fa-lg" /> <h4>A propos</h4>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/menu">
+                  <span className="fa fa-globe fa-lg" /> <h4>Explorer</h4>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/event">
+                  <span className="fa fa-users fa-lg" /> <h4>Evenements</h4>
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <Nav navbar className="ml-auto">
+              <NavItem>
+                <Button onClick={this.toggleModal} className="connexion">
+                  <h5 style={{ marginTop: 8 }}>Connexion</h5>
+                </Button>
+              </NavItem>
+            </Nav>
+          </Collapse>
         </Navbar>
         <Jumbotron>
           <div className="container">
