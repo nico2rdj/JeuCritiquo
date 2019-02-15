@@ -161,6 +161,31 @@ class CommentForm extends React.Component {
   }
 }
 
+const imgStyle = {
+  maxHeight: 200,
+  maxWidth: 200
+};
+
+const borderBox = {
+  border: "1px solid #dbdbdb",
+  borderRadius: "5px",
+  marginBottom: "10px"
+};
+
+const calendar = {
+  color: "black",
+  marginTop: "40px",
+  marginLeft: "50px",
+  marginRight: "50px"
+};
+
+const date = {
+  color: "black",
+  fontSize: "30px",
+  marginLeft: "30px",
+  fontWeight: "bold"
+};
+
 function RenderEvent({ event }) {
   return (
     <FadeTransform
@@ -169,16 +194,27 @@ function RenderEvent({ event }) {
         exitTransform: "scale(0.5) translateY(-50%)"
       }}
     >
-      <Media>
+      <Media style={borderBox}>
+        <Media left href="#">
+          <div className="row">
+            <span className="fa fa-5x fa-calendar black" style={calendar} />
+          </div>
+          <div className="row" style={date}>
+            15/02
+          </div>
+        </Media>
         <Media left href="#">
           <Media
             object
-            data-src={baseUrl + "images/codeNames.png"}
-            alt="Generic placeholder image"
+            src={baseUrl + "images/huns.png"}
+            style={imgStyle}
+            alt="huns"
           />
         </Media>
         <Media body>
-          <Media heading>Media heading</Media>
+          <Media left heading style={{ marginTop: "10px" }}>
+            Soirée du jeu de société hebdomadaire
+          </Media>
           Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
           scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in
           vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
@@ -240,7 +276,8 @@ const SearchEvent = props => {
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-md-5 mt-1">
+        <div className="col-12 col-md-12 mt-1">
+          <RenderEvent />
           <RenderEvent />
         </div>
       </div>
