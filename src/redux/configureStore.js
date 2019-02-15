@@ -4,6 +4,7 @@ import { Games } from "./games";
 import { Comments } from "./comments";
 import { Leaders } from "./leaders";
 import { Promotions } from "./promotions";
+import { Events } from "./events";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { InitialFeedback } from "./forms";
@@ -14,6 +15,7 @@ export const ConfigureStore = () => {
       games: Games,
       comments: Comments,
       leaders: Leaders,
+      events: Events,
       promotions: Promotions,
       ...createForms({
         feedback: InitialFeedback

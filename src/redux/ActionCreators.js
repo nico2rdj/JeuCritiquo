@@ -292,3 +292,51 @@ export const addFeedback = feedback => ({
   type: ActionTypes.ADD_FEEDBACK,
   payload: feedback
 });
+
+/* events */
+export const fetchEvents = () => dispatch => {
+  dispatch(eventsLoading(true));
+
+  return fetch(baseUrl + "events")
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then(response => response.json())
+    .then(events => dispatch(addEvents(events)))
+    .catch(error => dispatch(eventsFailed(error.message)));
+
+  /* simulate communication w the server */
+  /*
+  setTimeout(() => {
+    dispatch(addGames(GAMES));
+  }, 2000);
+  */
+};
+
+export const eventsLoading = () => ({
+  type: ActionTypes.EVENTS_LOADING
+});
+
+export const eventsFailed = errmess => ({
+  type: ActionTypes.EVENTS_FAILED,
+  payload: errmess
+});
+
+export const addEvents = events => ({
+  type: ActionTypes.ADD_EVENTS,
+  payload: events
+});

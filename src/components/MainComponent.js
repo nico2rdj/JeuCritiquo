@@ -15,7 +15,8 @@ import {
   fetchGames,
   fetchComments,
   fetchPromos,
-  fetchLeaders
+  fetchLeaders,
+  fetchEvents
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -25,7 +26,8 @@ const mapStateToProps = state => {
     games: state.games,
     comments: state.comments,
     promotions: state.promotions,
-    leaders: state.leaders
+    leaders: state.leaders,
+    events: state.events
   };
 };
 
@@ -55,6 +57,9 @@ const mapDispatchToProps = dispatch => ({
   fetchGames: () => {
     dispatch(fetchGames());
   },
+  fetchEvents: () => {
+    dispatch(fetchEvents());
+  },
   resetFeedbackForm: () => {
     dispatch(actions.reset("feedback"));
   },
@@ -81,6 +86,7 @@ class Main extends Component {
     this.props.fetchComments();
     this.props.fetchPromos();
     this.props.fetchLeaders();
+    this.props.fetchEvents();
   }
 
   onGameSelect(gameId) {
@@ -161,7 +167,11 @@ class Main extends Component {
                 )}
               />
               <Route exact path="/aboutus" component={AboutPage} />
-              <Route exact path="/event" component={() => <SearchEvent />} />
+              <Route
+                exact
+                path="/event"
+                component={() => <SearchEvent events={this.props.events} />}
+              />
               <Redirect to="/home" />
             </Switch>
           </CSSTransition>

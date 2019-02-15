@@ -163,7 +163,10 @@ class CommentForm extends React.Component {
 
 const imgStyle = {
   maxHeight: 200,
-  maxWidth: 200
+  maxWidth: 200,
+  height: 200,
+  width: 200,
+  marginRight: "10px"
 };
 
 const borderBox = {
@@ -186,6 +189,27 @@ const date = {
   fontWeight: "bold"
 };
 
+const verticalLine = {
+  borderLeft: "1px solid #dbdbdb",
+  height: "160px",
+  marginTop: "20px"
+};
+
+const peopleStyle = {
+  color: "green"
+};
+
+const organiseStyle = {
+  color: "#009999"
+};
+
+const organiserButtonStyle = {
+  backgroundColor: "#D80027",
+  borderRadius: "5px",
+  marginTop: "8px",
+  border: "0px"
+};
+
 function RenderEvent({ event }) {
   return (
     <FadeTransform
@@ -194,33 +218,60 @@ function RenderEvent({ event }) {
         exitTransform: "scale(0.5) translateY(-50%)"
       }}
     >
-      <Media style={borderBox}>
-        <Media left href="#">
-          <div className="row">
-            <span className="fa fa-5x fa-calendar black" style={calendar} />
-          </div>
-          <div className="row" style={date}>
-            15/02
-          </div>
-        </Media>
-        <Media left href="#">
-          <Media
-            object
-            src={baseUrl + "images/huns.png"}
-            style={imgStyle}
-            alt="huns"
-          />
-        </Media>
-        <Media body>
-          <Media left heading style={{ marginTop: "10px" }}>
-            Soirée du jeu de société hebdomadaire
+      <div className="row">
+        <Media style={borderBox}>
+          <Media left href="#">
+            <div className="row">
+              <span className="fa fa-5x fa-calendar black" style={calendar} />
+            </div>
+            <div className="row" style={date}>
+              15/02
+            </div>
           </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-          scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in
-          vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-          vulputate fringilla. Donec lacinia congue felis in faucibus.
+          <div style={verticalLine} />
+          <Media left href="#">
+            <Media
+              object
+              src={baseUrl + event.image}
+              style={imgStyle}
+              alt={event.name}
+            />
+          </Media>
+          <Media body style={{ marginLeft: "15px" }}>
+            <div className="row">
+              <Media left heading style={{ marginTop: "10px" }}>
+                {event.name}
+              </Media>
+            </div>
+            <div className="row mr-1">{event.description}</div>
+            <div className="row">
+              <div className="col-1 mt-3">
+                <span className="fa fa-3x fa-location-arrow black" />
+              </div>
+              <div className="col-2 mt-4">
+                <h5>{event.location}</h5>
+              </div>
+              <div className="col-1 mt-3">
+                <span
+                  className="fa fa-3x fa-address-card black"
+                  style={organiseStyle}
+                />
+              </div>
+              <div className="col-3 mt-4">
+                <h5 style={organiseStyle}>{event.author}</h5>
+              </div>
+              <div className="col-4 mt-4" style={peopleStyle}>
+                21 personnes intéressées
+              </div>
+
+              <span
+                className="fa fa-2x fa-users black mt-3 green"
+                style={peopleStyle}
+              />
+            </div>
+          </Media>
         </Media>
-      </Media>
+      </div>
     </FadeTransform>
   );
 }
@@ -258,29 +309,58 @@ function RenderComments({ comments, postComment, gameId }) {
 }
 
 const SearchEvent = props => {
+  const allEvents = props.events.events.map(event => {
+    return (
+      <div key={event.id} className="col-12 col-md-12 m-1">
+        <RenderEvent event={event} />
+        {/*}
+                <Media tag="li">
+                  <Media left middle>
+                    <Media object src={game.image} alt={game.name} />
+                  </Media>
+                  <Media body className="ml-5">
+                    <Media heading>{game.name}</Media>
+                    <p>{game.description}</p>
+                  </Media>
+                </Media>
+            */}
+      </div>
+    );
+  });
+
   return (
     <div className="container">
       <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/home">Home</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <Link to="/event">Evenements</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>s</BreadcrumbItem>
-        </Breadcrumb>
+        <div className="col-6">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/home">Home</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>
+              <Link to="/event">Evenements</Link>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+
+        <div className="col-3 offset-3">
+          <Link to="/home">
+            <Button
+              onClick={() => {}}
+              className="connexion ml-auto"
+              style={organiserButtonStyle}
+            >
+              <h5 style={{ marginTop: "7px" }}>Organiser un événement</h5>
+            </Button>
+          </Link>
+        </div>
+
         <div className="col-12">
           <h3 />
+
           <hr />
         </div>
       </div>
-      <div className="row">
-        <div className="col-12 col-md-12 mt-1">
-          <RenderEvent />
-          <RenderEvent />
-        </div>
-      </div>
+      <div className="row">{allEvents}</div>
     </div>
   );
 };

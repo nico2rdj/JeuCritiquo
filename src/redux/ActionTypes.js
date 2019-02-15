@@ -11,3 +11,6 @@ export const LEADERS_LOADING = "LEADERS_LOADING";
 export const LEADERS_FAILED = "LEADERS_FAILED";
 export const ADD_LEADERS = "ADD_LEADERS";
 export const ADD_FEEDBACK = "ADD_FEEDBACK";
+export const EVENTS_LOADING = "EVENTS_LOADING";
+export const EVENTS_FAILED = "EVENTS_FAILED";
+export const ADD_EVENTS = "ADD_EVENTS";
