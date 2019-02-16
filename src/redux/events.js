@@ -27,6 +27,10 @@ export const Events = (
         errMess: action.payload,
         events: []
       };
+    case ActionTypes.ADD_EVENT:
+      var event = action.payload;
+      //comment.id = state.comments.length; on peut le commenter car le id est généré automatiquement par le serveur
+      return { ...state, events: state.events.concat(event) };
 
     default:
       return state;

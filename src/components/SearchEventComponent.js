@@ -172,7 +172,8 @@ const imgStyle = {
 const borderBox = {
   border: "1px solid #dbdbdb",
   borderRadius: "5px",
-  marginBottom: "10px"
+  marginBottom: "10px",
+  width: "100%"
 };
 
 const calendar = {
@@ -243,13 +244,15 @@ function RenderEvent({ event }) {
                 {event.name}
               </Media>
             </div>
-            <div className="row mr-1">{event.description}</div>
+            <div className="row mr-1" style={{ height: "80px" }}>
+              {event.description}
+            </div>
             <div className="row">
               <div className="col-1 mt-3">
                 <span className="fa fa-3x fa-location-arrow black" />
               </div>
               <div className="col-2 mt-4">
-                <h5>{event.location}</h5>
+                <h5>{event.city}</h5>
               </div>
               <div className="col-1 mt-3">
                 <span
@@ -311,7 +314,7 @@ function RenderComments({ comments, postComment, gameId }) {
 const SearchEvent = props => {
   const allEvents = props.events.events.map(event => {
     return (
-      <div key={event.id} className="col-12 col-md-12 m-1">
+      <div key={event.id} className="col-12 col-md-12">
         <RenderEvent event={event} />
         {/*}
                 <Media tag="li">
@@ -343,7 +346,7 @@ const SearchEvent = props => {
         </div>
 
         <div className="col-3 offset-3">
-          <Link to="/home">
+          <Link to="/creationevent">
             <Button
               onClick={() => {}}
               className="connexion ml-auto"

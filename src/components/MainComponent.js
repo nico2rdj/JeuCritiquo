@@ -7,11 +7,13 @@ import Home from "./HomeComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutusComponent";
 import SearchEvent from "./SearchEventComponent";
+import CreationEvent from "./CreationEvent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   postComment,
   postFeedback,
+  postEvent,
   fetchGames,
   fetchComments,
   fetchPromos,
@@ -54,6 +56,36 @@ const mapDispatchToProps = dispatch => ({
         message
       )
     ),
+  postEvent: (
+    name,
+    image,
+    price,
+    author,
+    address,
+    city,
+    postalCode,
+    dateEvent,
+    startHour,
+    endHour,
+    description,
+    phone
+  ) =>
+    dispatch(
+      postEvent(
+        name,
+        price,
+        author,
+        address,
+        image,
+        city,
+        dateEvent,
+        startHour,
+        endHour,
+        postalCode,
+        description,
+        phone
+      )
+    ),
   fetchGames: () => {
     dispatch(fetchGames());
   },
@@ -62,6 +94,9 @@ const mapDispatchToProps = dispatch => ({
   },
   resetFeedbackForm: () => {
     dispatch(actions.reset("feedback"));
+  },
+  resetEventForm: () => {
+    dispatch(actions.reset("event"));
   },
   fetchComments: () => {
     dispatch(fetchComments());
@@ -171,6 +206,16 @@ class Main extends Component {
                 exact
                 path="/event"
                 component={() => <SearchEvent events={this.props.events} />}
+              />
+              <Route
+                exact
+                path="/creationevent"
+                component={() => (
+                  <CreationEvent
+                    events={this.props.events}
+                    postEvent={this.props.postEvent}
+                  />
+                )}
               />
               <Redirect to="/home" />
             </Switch>

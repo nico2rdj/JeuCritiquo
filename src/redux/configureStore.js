@@ -7,7 +7,7 @@ import { Promotions } from "./promotions";
 import { Events } from "./events";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { InitialFeedback } from "./forms";
+import { InitialFeedback, InitialEvent } from "./forms";
 
 export const ConfigureStore = () => {
   const store = createStore(
@@ -18,7 +18,8 @@ export const ConfigureStore = () => {
       events: Events,
       promotions: Promotions,
       ...createForms({
-        feedback: InitialFeedback
+        feedback: InitialFeedback,
+        event: InitialEvent
       })
     }),
     applyMiddleware(thunk, logger)

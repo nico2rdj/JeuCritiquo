@@ -28,7 +28,7 @@ class Contact extends Component {
   handleSubmit(values) {
     console.log("l'état est : " + JSON.stringify(values));
     alert("l'état est : " + JSON.stringify(values));
-    this.props.postFeedbackForm(values);
+    this.props.postFeedback(values);
     this.props.resetFeedbackForm();
   }
 
@@ -124,7 +124,7 @@ class Contact extends Component {
                   />
                   <Errors
                     className="text-danger"
-                    model=".firstname"
+                    model=".lastname"
                     show="touched"
                     messages={{
                       required: "Required",
