@@ -5,7 +5,6 @@ import {
   Button,
   FormGroup,
   Label,
-  Input,
   Col,
   Row
 } from "reactstrap";
@@ -26,6 +25,79 @@ const minLength = len => val => val && val.length >= len;
 const isNumber = val => !isNaN(Number(val));
 const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
+/* simulate image upload */
+class ImageUpload extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { file: "", imagePreviewUrl: "" };
+  }
+
+  _handleSubmit(e) {
+    e.preventDefault();
+    // TODO: do something with -> this.state.file
+    console.log("handle uploading-", this.state.file);
+  }
+
+  _handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  render() {
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (
+        <img
+          style={{ height: "300px", width: "300px" }}
+          src={imagePreviewUrl}
+        />
+      );
+    } else {
+      $imagePreview = (
+        <div className="previewText">Please select an Image for Preview</div>
+      );
+    }
+
+    return (
+      <div className="previewComponent">
+        <form onSubmit={e => this._handleSubmit(e)}>
+          <label for="file" class="label-file">
+            Choisir une image
+          </label>
+          <input
+            className="fileInput"
+            id="file"
+            type="file"
+            onChange={e => this._handleImageChange(e)}
+          />
+          {/*  
+          <button
+            className="submitButton"
+            type="submit"
+            onClick={e => this._handleSubmit(e)}
+          >
+            Upload Image
+          </button>
+          */}
+        </form>
+        <div>{$imagePreview}</div>
+      </div>
+    );
+  }
+}
+
 class CreationEvent extends Component {
   constructor(props) {
     super(props);
@@ -33,10 +105,28 @@ class CreationEvent extends Component {
     this.state = {
       date: null,
       focused: null,
-      time: ""
+      time: "",
+      file: "",
+      imagePreviewUrl: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  _handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    };
+
+    reader.readAsDataURL(file);
   }
 
   handleTimeChange = time => this.setState({ time });
@@ -54,6 +144,28 @@ class CreationEvent extends Component {
   }
 
   render() {
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (
+        <img
+          style={{ height: "300px", width: "300px" }}
+          src={imagePreviewUrl}
+        />
+      );
+    } else {
+      $imagePreview = (
+        <div className="previewText">
+          <Label htmlFor="file" md={12}>
+            <div className="row">
+              <label class="label-file">Choisir une image</label>
+            </div>
+            <span className="fa fa-upload fa-lg fa-2x" />
+          </Label>
+        </div>
+      );
+    }
+
     return (
       <div className="container">
         <div className="row">
@@ -291,6 +403,23 @@ class CreationEvent extends Component {
                       isNumber: "Must be a number"
                     }}
                   />
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Label htmlFor="file" md={2}>
+                  <label class="label-file">
+                    Choisir une image
+                    <span className="fa fa-upload fa-lg fa-2x" />
+                  </label>
+                </Label>
+                <Col md={10}>
+                  <input
+                    className="fileInput"
+                    id="file"
+                    type="file"
+                    onChange={e => this._handleImageChange(e)}
+                  />
+                  <div>{$imagePreview}</div>
                 </Col>
               </Row>
 
