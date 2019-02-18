@@ -98,6 +98,26 @@ class ImageUpload extends React.Component {
   }
 }
 
+const organiserButtonStyle = {
+  backgroundColor: "#D80027",
+  borderRadius: "5px",
+  marginTop: "8px",
+  border: "0px",
+  fontWeight: "bold",
+  height: "60px",
+  fontSize: "20px"
+};
+
+const retourButtonStyle = {
+  backgroundColor: "white",
+  color: "black",
+  borderRadius: "5px",
+  marginLeft: "8px",
+  border: "0px",
+  height: "40px",
+  fontSize: "20px"
+};
+
 class CreationEvent extends Component {
   constructor(props) {
     super(props);
@@ -176,206 +196,259 @@ class CreationEvent extends Component {
               type="file"
               onChange={e => this._handleImageChange(e)}
             />
+
+            <span
+              className="fa fa-upload fa-lg fa-2x"
+              style={{ marginTop: "100px" }}
+            />
             <div className="row">
               <label htmlFor="file" className="label-file">
                 Cliquez pour ajouter une image
               </label>
             </div>
-            <span
-              className="fa fa-upload fa-lg fa-2x"
-              style={{ marginTop: "100px" }}
-            />
           </Label>
         </div>
       );
     }
 
     return (
-      <div className="container">
+      <div>
         <div className="row">
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <Link to="/home">Home</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>Contact</BreadcrumbItem>
-          </Breadcrumb>
-          <div className="col-12">
-            <h3>Créer un événement</h3>
-            <hr />
+          <div style={{ marginLeft: "10px" }}>
+            <Button
+              tag={Link}
+              to="/event"
+              color="primary"
+              style={retourButtonStyle}
+            >
+              <span
+                className="fa fa-arrow-circle-left fa-lg"
+                style={{ marginRight: "5px", marginTop: "40px" }}
+              />
+              Revenir à la recherche d'événements
+            </Button>
           </div>
         </div>
-
-        <div className="row row-content">
-          <div className="col-12 col-md-12">
-            <Form model="event" onSubmit={values => this.handleSubmit(values)}>
-              <h3>Informations générales</h3>
-
-              <Row className="form-group">
-                <Col md={4}>
-                  <Control.text
-                    model=".name"
-                    id="name"
-                    name="name"
-                    placeholder="Nom de l'événement"
-                    className="form-control"
-                    validators={{
-                      required,
-                      minLength: minLength(3),
-                      maxLength: maxLength(15)
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".name"
-                    show="touched"
-                    messages={{
-                      required: "Required",
-                      minLength: "Must be greater than 2 characters",
-                      maxLength: "Must be 15 characters or less"
-                    }}
-                  />
-                </Col>
-              </Row>
-
-              <Row className="form-group">
-                <Col md={4}>
-                  <Control.text
-                    model=".author"
-                    id="author"
-                    name="author"
-                    placeholder="Organisateur"
-                    className="form-control"
-                    validators={{
-                      required,
-                      minLength: minLength(3),
-                      maxLength: maxLength(15)
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".author"
-                    show="touched"
-                    messages={{
-                      required: "Required",
-                      minLength: "Must be greater than 2 characters",
-                      maxLength: "Must be 15 characters or less"
-                    }}
-                  />
-                </Col>
-              </Row>
-
+        <div className="container">
+          <div className="row">
+            <div className="col-12" style={{ textAlign: "center" }}>
+              <h3>
+                <span
+                  className="fa fa-plus-square fa-lg"
+                  style={{
+                    marginRight: "5px",
+                    marginTop: "40px",
+                    color: "black"
+                  }}
+                />
+                Créer un événement
+              </h3>
               <hr />
-              <h3>Lieu</h3>
+            </div>
+          </div>
 
-              <Row className="form-group">
-                <Col md={6}>
-                  <Control.text
-                    model=".address"
-                    id="address"
-                    name="address"
-                    placeholder="Adresse"
-                    className="form-control"
-                    validators={{
-                      required
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".address"
-                    show="touched"
-                    messages={{
-                      required: "Required",
-                      validEmail: "Invalid email"
-                    }}
-                  />
-                </Col>
-              </Row>
+          <div className="row row-content">
+            <div className="col-12 col-md-12">
+              <Form
+                model="event"
+                onSubmit={values => this.handleSubmit(values)}
+              >
+                <Row>
+                  <Col md={6}>
+                    <h3>Informations générales</h3>
+                    <div className="space" />
+                    <Row className="form-group">
+                      <Col md={7}>
+                        <Control.text
+                          model=".name"
+                          id="name"
+                          name="name"
+                          placeholder="Nom de l'événement"
+                          className="form-control"
+                          validators={{
+                            required,
+                            minLength: minLength(3),
+                            maxLength: maxLength(15)
+                          }}
+                        />
+                        <Errors
+                          className="text-danger"
+                          model=".name"
+                          show="touched"
+                          messages={{
+                            required: "Required",
+                            minLength: "Must be greater than 2 characters",
+                            maxLength: "Must be 15 characters or less"
+                          }}
+                        />
+                      </Col>
+                    </Row>
 
-              <Row className="form-group">
-                <Col md={3}>
-                  <Control.text
-                    model=".city"
-                    id="city"
-                    name="city"
-                    placeholder="Ville"
-                    className="form-control"
-                    validators={{
-                      required
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".city"
-                    show="touched"
-                    messages={{
-                      required: "Required",
-                      validEmail: "Invalid email"
-                    }}
-                  />
-                </Col>
-                <Col md={3}>
-                  <Control.text
-                    model=".postalCode"
-                    id="postalCode"
-                    name="postalCode"
-                    placeholder="Code postal"
-                    className="form-control"
-                    validators={{
-                      required
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".postalCode"
-                    show="touched"
-                    messages={{
-                      required: "Required",
-                      validEmail: "Invalid email"
-                    }}
-                  />
-                </Col>
-              </Row>
+                    <Row className="form-group">
+                      <Col md={7}>
+                        <Control.text
+                          model=".author"
+                          id="author"
+                          name="author"
+                          placeholder="Organisateur"
+                          className="form-control"
+                          validators={{
+                            required,
+                            minLength: minLength(3),
+                            maxLength: maxLength(15)
+                          }}
+                        />
+                        <Errors
+                          className="text-danger"
+                          model=".author"
+                          show="touched"
+                          messages={{
+                            required: "Required",
+                            minLength: "Must be greater than 2 characters",
+                            maxLength: "Must be 15 characters or less"
+                          }}
+                        />
+                      </Col>
+                    </Row>
 
-              <hr />
+                    <Row>
+                      <Col md={8}>
+                        <hr />
+                      </Col>
+                    </Row>
+                    <h3>Lieu</h3>
+                    <div className="space" />
+                    <Row />
 
-              <h3>Date et heure</h3>
+                    <Row className="form-group">
+                      <Col md={7}>
+                        <Control.text
+                          model=".address"
+                          id="address"
+                          name="address"
+                          placeholder="Adresse"
+                          className="form-control"
+                          validators={{
+                            required
+                          }}
+                        />
+                        <Errors
+                          className="text-danger"
+                          model=".address"
+                          show="touched"
+                          messages={{
+                            required: "Required",
+                            validEmail: "Invalid email"
+                          }}
+                        />
+                      </Col>
+                    </Row>
 
-              <Row className="form-group">
-                <Label htmlFor="dateEvent" md={2} style={{ color: "#797979" }}>
-                  Date de l'événement
-                </Label>
-                <Col md={4}>
-                  <SingleDatePicker
-                    showClearDate={true}
-                    placeholder="Date"
-                    customInputIcon={<span className="fa fa-calendar fa-lg" />}
-                    inputIconPosition="before"
-                    small={true}
-                    block={false}
-                    numberOfMonths={1}
-                    date={this.state.date}
-                    onDateChange={date => this.handleDateChange(date)}
-                    focused={this.state.focused}
-                    onFocusChange={({ focused }) => this.setState({ focused })}
-                    openDirection="up"
-                    hideKeyboardShortcutsPanel={true}
-                  />
-                </Col>
-                <Label htmlFor="startHour" md={2} style={{ color: "#797979" }}>
-                  Heure de début
-                </Label>
-                <Col md={4}>
-                  <TimeInput
-                    mode="24h"
-                    cancelLabel="Annuler"
-                    okLabel="Valider"
-                    value={this.state.time}
-                    onChange={time => this.handleTimeChange(time)}
-                  />
-                </Col>
-              </Row>
+                    <Row className="form-group">
+                      <Col md={4}>
+                        <Control.text
+                          model=".city"
+                          id="city"
+                          name="city"
+                          placeholder="Ville"
+                          className="form-control"
+                          validators={{
+                            required
+                          }}
+                        />
+                        <Errors
+                          className="text-danger"
+                          model=".city"
+                          show="touched"
+                          messages={{
+                            required: "Required",
+                            validEmail: "Invalid email"
+                          }}
+                        />
+                      </Col>
+                      <Col md={3}>
+                        <Control.text
+                          model=".postalCode"
+                          id="postalCode"
+                          name="postalCode"
+                          placeholder="Code postal"
+                          className="form-control"
+                          validators={{
+                            required
+                          }}
+                        />
+                        <Errors
+                          className="text-danger"
+                          model=".postalCode"
+                          show="touched"
+                          messages={{
+                            required: "Required",
+                            validEmail: "Invalid email"
+                          }}
+                        />
+                      </Col>
+                    </Row>
 
-              {/*
+                    <Row>
+                      <Col md={8}>
+                        <hr />
+                      </Col>
+                    </Row>
+
+                    <h3>Date et heure</h3>
+                    <div className="space" />
+
+                    <Row className="form-group">
+                      <Label
+                        htmlFor="dateEvent"
+                        md={5}
+                        style={{ color: "#797979" }}
+                      >
+                        Date de l'événement
+                      </Label>
+                      <Col md={6}>
+                        <SingleDatePicker
+                          showClearDate={true}
+                          placeholder="Date"
+                          customInputIcon={
+                            <span className="fa fa-calendar fa-lg" />
+                          }
+                          inputIconPosition="before"
+                          small={true}
+                          block={false}
+                          numberOfMonths={1}
+                          date={this.state.date}
+                          onDateChange={date => this.handleDateChange(date)}
+                          focused={this.state.focused}
+                          onFocusChange={({ focused }) =>
+                            this.setState({ focused })
+                          }
+                          openDirection="up"
+                          hideKeyboardShortcutsPanel={true}
+                        />
+                      </Col>
+                    </Row>
+
+                    <Row className="form-group">
+                      <Label
+                        htmlFor="startHour"
+                        md={5}
+                        style={{ color: "#797979" }}
+                      >
+                        Heure de début
+                      </Label>
+                      <Col md={5}>
+                        <TimeInput
+                          mode="24h"
+                          cancelLabel="Annuler"
+                          okLabel="Valider"
+                          value={this.state.time}
+                          onChange={time => this.handleTimeChange(time)}
+                        />
+                      </Col>
+                    </Row>
+
+                    {/*
               <Row className="form-group">
                 <Label htmlFor="phone" md={2}>
                   Contact Tel.
@@ -408,37 +481,42 @@ class CreationEvent extends Component {
                 </Col>
               </Row>
                 */}
-              <Row className="form-group">
-                <Label htmlFor="" md={2} style={{ color: "#797979" }}>
-                  <label>Image de l'événement</label>
-                </Label>
-                <Col md={10}>
-                  <div>{$imagePreview}</div>
-                </Col>
-              </Row>
-
-              <Row className="form-group">
-                <Label htmlFor="description" md={2}>
-                  Votre description
-                </Label>
-                <Col md={10}>
-                  <Control.textarea
-                    model=".description"
-                    id="description"
-                    name="description"
-                    rows="12"
-                    className="form-control"
-                  />
-                </Col>
-              </Row>
-              <Row className="form-group">
-                <Col md={{ size: 10, offset: 2 }}>
-                  <Button type="submit" color="primary">
-                    Envoyez
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
+                  </Col>
+                  <Col md={6}>
+                    <h3>Image principal de l'événement</h3>
+                    <Row className="form-group">
+                      <Col offset={2} md={8}>
+                        <div>{$imagePreview}</div>
+                      </Col>
+                    </Row>
+                    <h3>Description</h3>
+                    <Row className="form-group">
+                      <Col md={12}>
+                        <Control.textarea
+                          model=".description"
+                          id="description"
+                          name="description"
+                          rows="12"
+                          className="form-control"
+                          placeholder="Rédiger une description de l'événement"
+                        />
+                      </Col>
+                    </Row>
+                    <Row className="form-group">
+                      <Col md={{ size: 5, offset: 7 }}>
+                        <Button
+                          type="submit"
+                          color="primary"
+                          style={organiserButtonStyle}
+                        >
+                          Créer l'événement
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
