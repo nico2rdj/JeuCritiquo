@@ -31,6 +31,7 @@
     "cross-fetch": "^2.1.0",
     "font-awesome": "^4.7.0",
     "material-ui-time-picker": "^1.1.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.6.0",
     "react-animation-components": "^3.0.0",
     "react-dates": "^19.0.3",

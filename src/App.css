@@ -95,15 +95,17 @@ address {
 
 .label-file {
   cursor: pointer;
-  color: #00b1ca;
+  color: #333333;
   font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
 }
 .label-file:hover {
   color: #25a5c4;
 }
 
 .previewText {
-  margin: 5px 15px;
   height: 300px;
   width: 300px;
   border-left: 1px solid;
@@ -112,4 +114,13 @@ address {
   border-bottom: 1px solid;
   text-align: center;
   vertical-align: middle;
+  border-radius: 10px;
+  border: 1px solid #dbdbdb;
+  background-color: #f2f2f2;
+}
+
+.form-control {
+  background-color: #f2f2f2;
+  border: 0em;
+  color: #333333;
 }

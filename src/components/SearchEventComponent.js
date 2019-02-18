@@ -24,6 +24,7 @@ import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 import { FadeTransform, Fade, Stagger } from "react-animation-components";
+import moment from "moment";
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
@@ -185,9 +186,12 @@ const calendar = {
 
 const date = {
   color: "black",
-  fontSize: "30px",
-  marginLeft: "30px",
-  fontWeight: "bold"
+  fontSize: "22px",
+  marginLeft: "17px",
+  marginRight: "auto",
+  marginTop: "15px",
+  fontWeight: "bold",
+  textAlign: "center"
 };
 
 const verticalLine = {
@@ -226,7 +230,7 @@ function RenderEvent({ event }) {
               <span className="fa fa-5x fa-calendar black" style={calendar} />
             </div>
             <div className="row" style={date}>
-              15/02
+              {moment(event.dateEvent).format("DD-MM-YYYY")}
             </div>
           </Media>
           <div style={verticalLine} />

@@ -137,10 +137,23 @@ class CreationEvent extends Component {
     });
   }
 
+  clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+      if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+  }
+
   handleSubmit(values) {
+    var t_values = this.clone(values);
+    t_values.dateEvent = this.state.date;
+    t_values.startHour = this.state.time;
     console.log("l'état est : " + JSON.stringify(values));
-    alert("l'état est : " + JSON.stringify(values));
-    this.props.postEvent(values);
+    alert("l'état est : " + JSON.stringify(t_values));
+
+    this.props.postEvent(t_values);
   }
 
   render() {
@@ -157,10 +170,21 @@ class CreationEvent extends Component {
       $imagePreview = (
         <div className="previewText">
           <Label htmlFor="file" md={12}>
+            <input
+              className="fileInput"
+              id="file"
+              type="file"
+              onChange={e => this._handleImageChange(e)}
+            />
             <div className="row">
-              <label class="label-file">Choisir une image</label>
+              <label htmlFor="file" className="label-file">
+                Cliquez pour ajouter une image
+              </label>
             </div>
-            <span className="fa fa-upload fa-lg fa-2x" />
+            <span
+              className="fa fa-upload fa-lg fa-2x"
+              style={{ marginTop: "100px" }}
+            />
           </Label>
         </div>
       );
@@ -184,14 +208,10 @@ class CreationEvent extends Component {
         <div className="row row-content">
           <div className="col-12 col-md-12">
             <Form model="event" onSubmit={values => this.handleSubmit(values)}>
-              <div className="col-12">
-                <h3>Informations générales</h3>
-              </div>
+              <h3>Informations générales</h3>
+
               <Row className="form-group">
-                <Label htmlFor="name" md={2}>
-                  Nom de l'événement
-                </Label>
-                <Col md={10}>
+                <Col md={4}>
                   <Control.text
                     model=".name"
                     id="name"
@@ -218,10 +238,7 @@ class CreationEvent extends Component {
               </Row>
 
               <Row className="form-group">
-                <Label htmlFor="author" md={2}>
-                  Organisateur
-                </Label>
-                <Col md={10}>
+                <Col md={4}>
                   <Control.text
                     model=".author"
                     id="author"
@@ -246,16 +263,12 @@ class CreationEvent extends Component {
                   />
                 </Col>
               </Row>
-              <div className="col-12">
-                <hr />
-                <h3>Lieu</h3>
-              </div>
+
+              <hr />
+              <h3>Lieu</h3>
 
               <Row className="form-group">
-                <Label htmlFor="address" md={2}>
-                  Adresse
-                </Label>
-                <Col md={10}>
+                <Col md={6}>
                   <Control.text
                     model=".address"
                     id="address"
@@ -279,10 +292,7 @@ class CreationEvent extends Component {
               </Row>
 
               <Row className="form-group">
-                <Label htmlFor="city" md={2}>
-                  Ville
-                </Label>
-                <Col md={10}>
+                <Col md={3}>
                   <Control.text
                     model=".city"
                     id="city"
@@ -303,13 +313,7 @@ class CreationEvent extends Component {
                     }}
                   />
                 </Col>
-              </Row>
-
-              <Row className="form-group">
-                <Label htmlFor="postalCode" md={2}>
-                  Code postal
-                </Label>
-                <Col md={10}>
+                <Col md={3}>
                   <Control.text
                     model=".postalCode"
                     id="postalCode"
@@ -333,17 +337,17 @@ class CreationEvent extends Component {
               </Row>
 
               <hr />
-              <div className="col-12">
-                <h3>Date et heure</h3>
-              </div>
+
+              <h3>Date et heure</h3>
 
               <Row className="form-group">
-                <Label htmlFor="dateEvent" md={2}>
+                <Label htmlFor="dateEvent" md={2} style={{ color: "#797979" }}>
                   Date de l'événement
                 </Label>
-                <Col md={10}>
+                <Col md={4}>
                   <SingleDatePicker
                     showClearDate={true}
+                    placeholder="Date"
                     customInputIcon={<span className="fa fa-calendar fa-lg" />}
                     inputIconPosition="before"
                     small={true}
@@ -357,13 +361,10 @@ class CreationEvent extends Component {
                     hideKeyboardShortcutsPanel={true}
                   />
                 </Col>
-              </Row>
-
-              <Row className="form-group">
-                <Label htmlFor="startHour" md={2}>
+                <Label htmlFor="startHour" md={2} style={{ color: "#797979" }}>
                   Heure de début
                 </Label>
-                <Col md={10}>
+                <Col md={4}>
                   <TimeInput
                     mode="24h"
                     cancelLabel="Annuler"
@@ -374,6 +375,7 @@ class CreationEvent extends Component {
                 </Col>
               </Row>
 
+              {/*
               <Row className="form-group">
                 <Label htmlFor="phone" md={2}>
                   Contact Tel.
@@ -405,20 +407,12 @@ class CreationEvent extends Component {
                   />
                 </Col>
               </Row>
+                */}
               <Row className="form-group">
-                <Label htmlFor="file" md={2}>
-                  <label class="label-file">
-                    Choisir une image
-                    <span className="fa fa-upload fa-lg fa-2x" />
-                  </label>
+                <Label htmlFor="" md={2} style={{ color: "#797979" }}>
+                  <label>Image de l'événement</label>
                 </Label>
                 <Col md={10}>
-                  <input
-                    className="fileInput"
-                    id="file"
-                    type="file"
-                    onChange={e => this._handleImageChange(e)}
-                  />
                   <div>{$imagePreview}</div>
                 </Col>
               </Row>
