@@ -25,14 +25,12 @@ function RenderCard({ item, isLoading, errMess }) {
         }}
       >
         <Card>
-          <CardImg src={baseUrl + item.image} alt={item.name} />
-          <CardBody>
-            <CardTitle>{item.name}</CardTitle>
-            {item.designation ? (
-              <CardSubtitle>{item.designation}</CardSubtitle>
-            ) : null}
-            <CardText>{item.description}</CardText>
-          </CardBody>
+          <CardImg
+            src={baseUrl + item.image}
+            alt={item.name}
+            height="500"
+            width="200"
+          />
         </Card>
       </FadeTransform>
     );
@@ -41,25 +39,18 @@ function Event(props) {
   return (
     <div className="container">
       <div className="row align-items-start">
-        <div className="col-12 col-md m-1">
+        <div className="col-12 col-md-5 m-1">
           <RenderCard
-            item={props.game}
-            isLoading={props.gamesLoading}
-            errMess={props.gamesErrMess}
+            item={props.event}
+            isLoading={props.isLoading}
+            errMess={props.errMess}
           />
         </div>
-        <div className="col-12 col-md m-1">
+        <div className="col-12 col-md-5 m-1">
           <RenderCard
-            item={props.promotion}
-            isLoading={props.promosLoading}
-            errMess={props.promosErrMess}
-          />
-        </div>
-        <div className="col-12 col-md m-1">
-          <RenderCard
-            item={props.leader}
-            isLoading={props.leadersLoading}
-            errMess={props.leadersErrMess}
+            item={props.event}
+            isLoading={props.isLoading}
+            errMess={props.errMess}
           />
         </div>
       </div>

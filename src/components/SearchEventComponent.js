@@ -156,7 +156,7 @@ const SearchEvent = props => {
     var eventId = "/events/".concat(event.id);
     return (
       <div key={event.id} className="col-12 col-md-12">
-        <Link to={eventId}>
+        <Link to={eventId} style={{ textDecoration: "none", color: "black" }}>
           <RenderEvent event={event} />
           {/*}
                 <Media tag="li">

@@ -183,6 +183,8 @@ class Main extends Component {
               event => event.id === parseInt(match.params.eventId, 10)
             )[0]
           }
+          isLoading={this.props.events.isLoading}
+          errMess={this.props.events.errMess}
         />
       );
     };
