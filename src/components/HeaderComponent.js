@@ -104,7 +104,7 @@ class Header extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/event">
+                <NavLink className="nav-link" to="/events">
                   <span className="fa fa-users fa-lg" /> <h4>Evenements</h4>
                 </NavLink>
               </NavItem>

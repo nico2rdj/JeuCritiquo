@@ -30,138 +30,6 @@ const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
 
-class CommentForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isModalOpen: false
-    };
-
-    this.toggleModal = this.toggleModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(values) {
-    this.toggleModal();
-    this.props.postComment(
-      this.props.gameId,
-      values.rating,
-      values.name,
-      values.comment
-    );
-  }
-
-  toggleModal() {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen
-    });
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <Button className="mb-4" onClick={this.toggleModal} outline>
-          <span className="fa fa-pencil fa-lg" /> Poster un commentaire
-        </Button>
-
-        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>
-            Poster un commentaire
-          </ModalHeader>
-          <ModalBody>
-            <div className="row row-content">
-              <div className="col-12 col-md-9">
-                <LocalForm onSubmit={values => this.handleSubmit(values)}>
-                  <Row>
-                    <Label htmlFor="rating" md={2}>
-                      {" "}
-                      Note{" "}
-                    </Label>
-                  </Row>
-                  <Row className="form-group">
-                    <Col md={12}>
-                      <Control.select
-                        model=".rating"
-                        id="rating"
-                        name="rating"
-                        className="form-control"
-                      >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </Control.select>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Label htmlFor="name" md={10}>
-                      {" "}
-                      Votre nom{" "}
-                    </Label>
-                  </Row>
-                  <Row className="form-group">
-                    <Col md={12}>
-                      <Control.text
-                        model=".name"
-                        id="name"
-                        name="name"
-                        placeholder="Nom"
-                        className="form-control"
-                        validators={{
-                          required,
-                          minLength: minLength(3),
-                          maxLength: maxLength(15)
-                        }}
-                      />
-                      <Errors
-                        className="text-danger"
-                        model=".name"
-                        show="touched"
-                        messages={{
-                          required: "Required",
-                          minLength: "Must be greater than 3 characters",
-                          maxLength: "Must be 15 characters or less"
-                        }}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row className="form-group">
-                    <Label htmlFor="comment" md={2}>
-                      {" "}
-                      Votre commentaire{" "}
-                    </Label>
-                  </Row>
-                  <Row>
-                    <Col md={10}>
-                      <Control.textarea
-                        model=".comment"
-                        id="comment"
-                        name="comment"
-                        rows="12"
-                        className="form-control"
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row className="form-group">
-                    <Col className="mt-4">
-                      <Button type="submit" color="primary">
-                        Poster
-                      </Button>
-                    </Col>
-                  </Row>
-                </LocalForm>
-              </div>
-            </div>
-          </ModalBody>
-        </Modal>
-      </React.Fragment>
-    );
-  }
-}
-
 const imgStyle = {
   maxHeight: 200,
   maxWidth: 200,
@@ -283,44 +151,14 @@ function RenderEvent({ event }) {
   );
 }
 
-function RenderComments({ comments, postComment, gameId }) {
-  if (comments != null) {
-    return (
-      <div>
-        <h4>
-          <strong>Commentaires</strong>
-        </h4>
-        <Stagger in>
-          {comments.map(comment => (
-            <Fade in>
-              <div key={comment.id}>
-                <p>{comment.comment}</p>
-                <p>
-                  --{comment.author},
-                  {new Intl.DateTimeFormat("en-us", {
-                    year: "numeric",
-                    month: "short",
-                    day: "2-digit"
-                  }).format(new Date(Date.parse(comment.date)))}
-                </p>
-              </div>
-            </Fade>
-          ))}
-        </Stagger>
-        <CommentForm postComment={postComment} gameId={gameId} />
-      </div>
-    );
-  } else {
-    return <div />;
-  }
-}
-
 const SearchEvent = props => {
   const allEvents = props.events.events.map(event => {
+    var eventId = "/events/".concat(event.id);
     return (
       <div key={event.id} className="col-12 col-md-12">
-        <RenderEvent event={event} />
-        {/*}
+        <Link to={eventId}>
+          <RenderEvent event={event} />
+          {/*}
                 <Media tag="li">
                   <Media left middle>
                     <Media object src={game.image} alt={game.name} />
@@ -331,6 +169,7 @@ const SearchEvent = props => {
                   </Media>
                 </Media>
             */}
+        </Link>
       </div>
     );
   });

@@ -8,6 +8,7 @@ import Contact from "./ContactComponent";
 import About from "./AboutusComponent";
 import SearchEvent from "./SearchEventComponent";
 import CreationEvent from "./CreationEvent";
+import Event from "./Event";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -174,6 +175,18 @@ class Main extends Component {
       );
     };
 
+    const EventWithId = ({ match }) => {
+      return (
+        <Event
+          event={
+            this.props.events.events.filter(
+              event => event.id === parseInt(match.params.eventId, 10)
+            )[0]
+          }
+        />
+      );
+    };
+
     return (
       <div className="App">
         <Header />
@@ -191,6 +204,7 @@ class Main extends Component {
                 component={() => <Menu games={this.props.games} />}
               />
               <Route path="/menu/:gameId" component={GameWithId} />
+              <Route path="/events/:eventId" component={EventWithId} />
               <Route
                 exact
                 path="/contactus"
@@ -204,7 +218,7 @@ class Main extends Component {
               <Route exact path="/aboutus" component={AboutPage} />
               <Route
                 exact
-                path="/event"
+                path="/events"
                 component={() => <SearchEvent events={this.props.events} />}
               />
               <Route
