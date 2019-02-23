@@ -118,6 +118,7 @@ class Header extends Component {
             </Nav>
           </Collapse>
         </Navbar>
+        {/*
         <Jumbotron>
           <div className="container">
             <div className="row row-header">
@@ -128,6 +129,7 @@ class Header extends Component {
             </div>
           </div>
         </Jumbotron>
+        */}
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Connexion</ModalHeader>
           <ModalBody>
