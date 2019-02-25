@@ -19,18 +19,20 @@ import {
   InputGroupAddon,
   Label
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, Redirect, Switch } from "react-router-dom";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isNavOpen: false,
-      isModalOpen: false
+      isModalOpen: false,
+      redirect: false
     };
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   toggleNav() {
@@ -40,6 +42,19 @@ class Header extends Component {
   toggleModal() {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    });
+  };
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      var searchText = "/search/".concat(this.search.value);
+
+      return <Redirect to={searchText} />;
+    }
+  };
 
   handleLogin(event) {
     /* on agit directement sur le dom */
@@ -52,6 +67,15 @@ class Header extends Component {
         " Se souvenir: " +
         this.remember.checked
     );
+    event.preventDefault();
+  }
+
+  handleSearch(event) {
+    /* on agit directement sur le dom */
+    //this.toggleModal();
+    alert("Recherche: " + this.search.value);
+    this.setRedirect();
+
     event.preventDefault();
   }
 
@@ -69,15 +93,24 @@ class Header extends Component {
             />
           </NavbarBrand>
 
+          <div>{this.renderRedirect()}</div>
+
           <div className="col-3">
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">
-                <Button>
-                  <span className="fa fa-search fa-lg" />
-                </Button>
-              </InputGroupAddon>
-              <Input placeholder="Rechercher un jeu de société" />
-            </InputGroup>
+            <Form onSubmit={this.handleSearch}>
+              <InputGroup>
+                <InputGroupAddon addonType="prepend">
+                  <Button value="submit" type="submit">
+                    <span className="fa fa-search fa-lg" />
+                  </Button>
+                </InputGroupAddon>
+                <Input
+                  type="text"
+                  name="text"
+                  placeholder="Rechercher un jeu de société"
+                  innerRef={input => (this.search = input)}
+                />
+              </InputGroup>
+            </Form>
           </div>
 
           <Collapse isOpen={this.state.isNavOpen} navbar>

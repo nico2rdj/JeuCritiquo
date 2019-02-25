@@ -9,6 +9,7 @@ import About from "./AboutusComponent";
 import SearchEvent from "./SearchEventComponent";
 import CreationEvent from "./CreationEvent";
 import Event from "./Event";
+import SearchGame from "./SearchGameComponent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -189,6 +190,10 @@ class Main extends Component {
       );
     };
 
+    const SearchWithText = ({ match }) => {
+      return <SearchGame search={match.params.searchText} />;
+    };
+
     return (
       <div className="App">
         <Header />
@@ -205,8 +210,11 @@ class Main extends Component {
                 path="/menu"
                 component={() => <Menu games={this.props.games} />}
               />
+
               <Route path="/menu/:gameId" component={GameWithId} />
               <Route path="/events/:eventId" component={EventWithId} />
+              <Route path="/search/:searchText" component={SearchWithText} />
+
               <Route
                 exact
                 path="/contactus"
