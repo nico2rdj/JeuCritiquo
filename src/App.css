@@ -21,7 +21,7 @@
 .jumbotron {
   padding: 70px 30px 70px 30px;
   margin: 0px auto;
-  background: #9575cd;
+  background: rgb(129, 6, 6);
   color: floralwhite;
 }
 
@@ -127,4 +127,9 @@ address {
 
 .space {
   margin-top: 40px;
+}
+
+.w-100 {
+  width: 100% !important;
+  height: 50%;
 }

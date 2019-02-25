@@ -5,11 +5,14 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle
+  CardSubtitle,
+  UncontrolledCarousel,
+  Jumbotron
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 import { FadeTransform } from "react-animation-components";
+import CarouselHome from "./CarouselHome";
 
 function RenderCard({ item, isLoading, errMess }) {
   if (isLoading) {
@@ -39,28 +42,37 @@ function RenderCard({ item, isLoading, errMess }) {
 }
 function Home(props) {
   return (
-    <div className="container">
-      <div className="row align-items-start">
-        <div className="col-12 col-md m-1">
-          <RenderCard
-            item={props.game}
-            isLoading={props.gamesLoading}
-            errMess={props.gamesErrMess}
-          />
+    <div>
+      <div className="row" style={{ backgroundColor: "black" }}>
+        <div className="col-12 offset-2 col-md-8 offset-2 col-sm-6">
+          <CarouselHome />
         </div>
-        <div className="col-12 col-md m-1">
-          <RenderCard
-            item={props.promotion}
-            isLoading={props.promosLoading}
-            errMess={props.promosErrMess}
-          />
-        </div>
-        <div className="col-12 col-md m-1">
-          <RenderCard
-            item={props.leader}
-            isLoading={props.leadersLoading}
-            errMess={props.leadersErrMess}
-          />
+      </div>
+
+      <div />
+      <div className="container">
+        <div className="row align-items-start">
+          <div className="col-12 col-md m-1">
+            <RenderCard
+              item={props.game}
+              isLoading={props.gamesLoading}
+              errMess={props.gamesErrMess}
+            />
+          </div>
+          <div className="col-12 col-md m-1">
+            <RenderCard
+              item={props.promotion}
+              isLoading={props.promosLoading}
+              errMess={props.promosErrMess}
+            />
+          </div>
+          <div className="col-12 col-md m-1">
+            <RenderCard
+              item={props.leader}
+              isLoading={props.leadersLoading}
+              errMess={props.leadersErrMess}
+            />
+          </div>
         </div>
       </div>
     </div>
