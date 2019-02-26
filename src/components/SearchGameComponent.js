@@ -83,7 +83,7 @@ const organiserButtonStyle = {
   border: "0px"
 };
 
-function RenderEvent({ event }) {
+function RenderGame({ game }) {
   return (
     <FadeTransform
       in
@@ -93,56 +93,101 @@ function RenderEvent({ event }) {
     >
       <div className="row">
         <Media style={borderBox}>
-          <Media left href="#">
-            <div className="row">
-              <span className="fa fa-5x fa-calendar black" style={calendar} />
-            </div>
-            <div className="row" style={date}>
-              {moment(event.dateEvent).format("DD-MM-YYYY")}
-            </div>
-          </Media>
           <div style={verticalLine} />
           <Media left href="#">
             <Media
               object
-              src={baseUrl + event.image}
+              src={baseUrl + game.image}
               style={imgStyle}
-              alt={event.name}
+              alt={game.name}
             />
           </Media>
           <Media body style={{ marginLeft: "15px" }}>
             <div className="row">
-              <Media left heading style={{ marginTop: "10px" }}>
-                {event.name}
-              </Media>
+              <div className="col-9">
+                <Media left heading style={{ marginTop: "10px" }}>
+                  {game.name}
+                </Media>
+              </div>
+              <div className="col-3">
+                <span
+                  style={{ marginLeft: "20px", color: "#F5C518" }}
+                  className="fa fas fa-2x fa-star mt-3"
+                />
+                <span
+                  style={{
+                    marginLeft: "20px",
+                    fontSize: "25px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  {game.rating}{" "}
+                  <span
+                    style={{
+                      marginLeft: "2px",
+                      fontSize: "15px",
+                      color: "grey"
+                    }}
+                  >
+                    / 10
+                  </span>
+                </span>
+              </div>
             </div>
             <div className="row mr-1" style={{ height: "80px" }}>
-              {event.description}
+              <div className="col-10">{game.description}</div>
             </div>
             <div className="row">
-              <div className="col-1 mt-3">
-                <span className="fa fa-3x fa-location-arrow black" />
-              </div>
-              <div className="col-2 mt-4">
-                <h5>{event.city}</h5>
-              </div>
-              <div className="col-1 mt-3">
+              <div className="col-2 mt-3">
+                <span className="fa fas fa-2x fa-clock-o black" />
                 <span
-                  className="fa fa-3x fa-address-card black"
-                  style={organiseStyle}
-                />
+                  style={{
+                    marginLeft: "10px",
+                    backgroundColor: "#f2f2f2"
+                  }}
+                >
+                  {game.playingTime} minutes
+                </span>
               </div>
-              <div className="col-3 mt-4">
-                <h5 style={organiseStyle}>{event.author}</h5>
-              </div>
-              <div className="col-4 mt-4" style={peopleStyle}>
-                21 personnes intéressées
+              <div className="col-3 mt-3">
+                <div style={{ marginRight: "auto" }}>
+                  <span className="fa fas fa-2x fa-users black" />
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#f2f2f2"
+                    }}
+                  >
+                    {game.playerMin} - {game.playerMax} joueurs
+                  </span>
+                </div>
               </div>
 
-              <span
-                className="fa fa-2x fa-users black mt-3 green"
-                style={peopleStyle}
-              />
+              <div className="col-3 mt-3">
+                <div style={{ marginRight: "auto" }}>
+                  <span className="fa fas fa-2x fa-puzzle-piece black" />
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#f2f2f2"
+                    }}
+                  >
+                    {game.category}
+                  </span>
+                </div>
+              </div>
+
+              <div className="col-2 mt-3">
+                <span className="fa fa-2x fa-universal-access black" />
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    backgroundColor: "#f2f2f2"
+                  }}
+                >
+                  +{game.ageMin} ans
+                </span>
+              </div>
             </div>
           </Media>
         </Media>
@@ -152,12 +197,12 @@ function RenderEvent({ event }) {
 }
 
 const SearchGame = props => {
-  const allEvents = props.events.events.map(event => {
-    var eventId = "/events/".concat(event.id);
+  const allEvents = props.games.map(game => {
+    var eventId = "/game/".concat(game.id);
     return (
-      <div key={event.id} className="col-12 col-md-12">
+      <div key={game.id} className="col-12 col-md-12">
         <Link to={eventId} style={{ textDecoration: "none", color: "black" }}>
-          <RenderEvent event={event} />
+          <RenderGame game={game} />
           {/*}
                 <Media tag="li">
                   <Media left middle>

@@ -191,7 +191,12 @@ class Main extends Component {
     };
 
     const SearchWithText = ({ match }) => {
-      return <SearchGame search={match.params.searchText} />;
+      return (
+        <SearchGame
+          games={this.props.games.games}
+          search={match.params.searchText}
+        />
+      );
     };
 
     return (
