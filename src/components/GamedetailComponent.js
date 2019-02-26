@@ -29,6 +29,199 @@ const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
 
+const imgStyle = {
+  maxHeight: 500,
+  maxWidth: 500,
+  height: 400,
+  width: 300,
+  marginRight: "10px"
+};
+
+const borderBox = {
+  border: "0px solid #dbdbdb",
+  borderRadius: "5px",
+  marginBottom: "10px",
+  width: "100%"
+};
+
+const calendar = {
+  color: "black",
+  marginTop: "40px",
+  marginLeft: "50px",
+  marginRight: "50px"
+};
+
+const date = {
+  color: "black",
+  fontSize: "22px",
+  marginLeft: "17px",
+  marginRight: "auto",
+  marginTop: "15px",
+  fontWeight: "bold",
+  textAlign: "center"
+};
+
+const verticalLine = {
+  borderLeft: "1px solid #dbdbdb",
+  height: "300px",
+  marginTop: "20px"
+};
+
+const peopleStyle = {
+  color: "green"
+};
+
+const organiseStyle = {
+  color: "#009999"
+};
+
+const organiserButtonStyle = {
+  backgroundColor: "#D80027",
+  borderRadius: "5px",
+  marginTop: "8px",
+  border: "0px"
+};
+
+function RenderGameD({ game }) {
+  return (
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.5) translateY(-50%)"
+      }}
+    >
+      <div className="row">
+        <Media style={borderBox}>
+          <div style={verticalLine} />
+          <Media left href="#">
+            <Media
+              object
+              src={baseUrl + game.image}
+              style={imgStyle}
+              alt={game.name}
+            />
+          </Media>
+          <Media body style={{ marginLeft: "15px" }}>
+            <div className="row">
+              <div className="col-md-3">
+                <div className="row">
+                  <div className="col-6">
+                    <Media left heading style={{ marginTop: "10px" }}>
+                      {game.name}
+                    </Media>
+                  </div>
+                </div>
+
+                <div className="row mt-4">
+                  <span className="fa fas fa-2x fa-clock-o black" />
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#f2f2f2"
+                    }}
+                  >
+                    {game.playingTime} minutes
+                  </span>
+                </div>
+                <div className="row mt-4">
+                  <div style={{ marginRight: "auto" }}>
+                    <span className="fa fas fa-2x fa-users black" />
+                    <span
+                      style={{
+                        marginLeft: "10px",
+                        backgroundColor: "#f2f2f2"
+                      }}
+                    >
+                      {game.playerMin} - {game.playerMax} joueurs
+                    </span>
+                  </div>
+                </div>
+
+                <div className="row mt-4">
+                  <div style={{ marginRight: "auto" }}>
+                    <span className="fa fas fa-2x fa-puzzle-piece black" />
+                    <span
+                      style={{
+                        marginLeft: "10px",
+                        backgroundColor: "#f2f2f2"
+                      }}
+                    >
+                      {game.category}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="row mt-4">
+                  <span className="fa fa-2x fa-universal-access black" />
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#f2f2f2"
+                    }}
+                  >
+                    +{game.ageMin} ans
+                  </span>
+                </div>
+              </div>
+              <div style={verticalLine} />
+
+              <div className="col-md-5" style={{ marginTop: "12px" }} />
+              <div className="col-md-3">
+                <span
+                  style={{ marginLeft: "20px", color: "#F5C518" }}
+                  className="fa fas fa-2x fa-star mt-3"
+                />
+                <span
+                  style={{
+                    marginLeft: "20px",
+                    fontSize: "25px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  {game.rating}{" "}
+                  <span
+                    style={{
+                      marginLeft: "2px",
+                      fontSize: "15px",
+                      color: "grey"
+                    }}
+                  >
+                    / 10
+                  </span>
+                </span>
+              </div>
+            </div>
+          </Media>
+        </Media>
+      </div>
+    </FadeTransform>
+  );
+}
+
+const SearchGame = props => {
+  const allEvents = props.games.map(game => {
+    var gameId = "/games/".concat(game.id);
+    return (
+      <div key={game.id} className="col-12 col-md-12">
+        <Link to={gameId} style={{ textDecoration: "none", color: "black" }}>
+          <RenderGame game={game} />
+          {/*}
+                <Media tag="li">
+                  <Media left middle>
+                    <Media object src={game.image} alt={game.name} />
+                  </Media>
+                  <Media body className="ml-5">
+                    <Media heading>{game.name}</Media>
+                    <p>{game.description}</p>
+                  </Media>
+                </Media>
+            */}
+        </Link>
+      </div>
+    );
+  });
+};
+
 class CommentForm extends React.Component {
   constructor(props) {
     super(props);
@@ -252,9 +445,15 @@ const GameDetail = props => {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-md-5 mt-1">
-            <RenderGame game={props.game} />
+          <div className="col-12 col-md-12 mt-1">
+            <RenderGameD game={props.game} />
           </div>
+        </div>
+        <div className="row">
+          <h5>Description</h5>
+          <p>{props.game.description}</p>
+        </div>
+        <div className="row">
           <div className="col-12 col-md-5 mt-1">
             <RenderComments
               comments={props.comments}

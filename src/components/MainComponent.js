@@ -219,6 +219,7 @@ class Main extends Component {
               <Route path="/menu/:gameId" component={GameWithId} />
               <Route path="/events/:eventId" component={EventWithId} />
               <Route path="/search/:searchText" component={SearchWithText} />
+              <Route path="/games/:gameId" component={GameWithId} />
 
               <Route
                 exact

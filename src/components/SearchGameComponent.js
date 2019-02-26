@@ -198,10 +198,10 @@ function RenderGame({ game }) {
 
 const SearchGame = props => {
   const allEvents = props.games.map(game => {
-    var eventId = "/game/".concat(game.id);
+    var gameId = "/games/".concat(game.id);
     return (
       <div key={game.id} className="col-12 col-md-12">
-        <Link to={eventId} style={{ textDecoration: "none", color: "black" }}>
+        <Link to={gameId} style={{ textDecoration: "none", color: "black" }}>
           <RenderGame game={game} />
           {/*}
                 <Media tag="li">
