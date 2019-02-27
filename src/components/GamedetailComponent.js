@@ -37,8 +37,16 @@ const imgStyle = {
   marginRight: "10px"
 };
 
+const imgStyleComment = {
+  maxHeight: 500,
+  maxWidth: 500,
+  height: 140,
+  width: 120,
+  marginRight: "10px"
+};
+
 const borderBox = {
-  border: "0px solid #dbdbdb",
+  border: "1px solid #dbdbdb",
   borderRadius: "5px",
   marginBottom: "10px",
   width: "100%"
@@ -377,7 +385,7 @@ function RenderGame({ game }) {
   }
 }
 
-function RenderComments({ comments, postComment, gameId }) {
+function RenderCommentsB({ comments, postComment, gameId }) {
   if (comments != null) {
     return (
       <div>
@@ -388,9 +396,9 @@ function RenderComments({ comments, postComment, gameId }) {
           {comments.map(comment => (
             <Fade in>
               <div key={comment.id}>
+                <h5>{comment.author}</h5>
                 <p>{comment.comment}</p>
                 <p>
-                  --{comment.author},
                   {new Intl.DateTimeFormat("en-us", {
                     year: "numeric",
                     month: "short",
@@ -402,6 +410,82 @@ function RenderComments({ comments, postComment, gameId }) {
           ))}
         </Stagger>
         <CommentForm postComment={postComment} gameId={gameId} />
+      </div>
+    );
+  } else {
+    return <div />;
+  }
+}
+
+function RenderComments({ comments, postComment, gameId }) {
+  if (comments != null) {
+    return (
+      <div>
+        <Stagger in>
+          {comments.map(comment => (
+            <Fade in>
+              <div key={comment.id}>
+                <div className="row">
+                  <Media style={borderBox}>
+                    <Media left href="#">
+                      <Media
+                        object
+                        src={baseUrl + "images/profile.png"}
+                        style={imgStyleComment}
+                        alt={comment.author}
+                      />
+                    </Media>
+                    <Media body style={{ marginLeft: "15px" }}>
+                      <div className="row">
+                        <div className="col-md-3">
+                          <Media left heading style={{ marginTop: "10px" }}>
+                            {comment.author}
+                          </Media>
+                        </div>
+                        <div className="col-md-2">
+                          <p style={{ marginTop: "10px" }}>
+                            {new Intl.DateTimeFormat("en-us", {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit"
+                            }).format(new Date(Date.parse(comment.date)))}
+                          </p>
+                        </div>
+                        <div className="offset-4 col-md-3">
+                          <span
+                            style={{ marginLeft: "20px", color: "#F5C518" }}
+                            className="fa fas fa-2x fa-star mt-3"
+                          />
+                          <span
+                            style={{
+                              marginLeft: "20px",
+                              fontSize: "25px",
+                              fontWeight: "bold"
+                            }}
+                          >
+                            {comment.rating}{" "}
+                            <span
+                              style={{
+                                marginLeft: "2px",
+                                fontSize: "15px",
+                                color: "grey"
+                              }}
+                            >
+                              / 10
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="row mr-1" style={{ height: "80px" }}>
+                        <div className="col-md-10">{comment.comment}</div>
+                      </div>
+                    </Media>
+                  </Media>
+                </div>
+              </div>
+            </Fade>
+          ))}
+        </Stagger>
       </div>
     );
   } else {
@@ -454,7 +538,15 @@ const GameDetail = props => {
           <p>{props.game.description}</p>
         </div>
         <div className="row">
-          <div className="col-12 col-md-5 mt-1">
+          <h5>
+            <strong>Commentaires</strong>
+          </h5>
+        </div>
+        <div className="row">
+          <CommentForm postComment={props.postComment} gameId={props.game.id} />
+        </div>
+        <div className="row">
+          <div className="col-12 col-md-12 mt-1">
             <RenderComments
               comments={props.comments}
               postComment={props.postComment}
