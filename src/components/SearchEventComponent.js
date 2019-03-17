@@ -69,11 +69,11 @@ const verticalLine = {
 };
 
 const peopleStyle = {
-  color: "green"
+  //color: "green"
 };
 
 const organiseStyle = {
-  color: "#009999"
+  //color: "#009999"
 };
 
 const organiserButtonStyle = {
@@ -121,19 +121,31 @@ function RenderEvent({ event }) {
             </div>
             <div className="row">
               <div className="col-1 mt-3">
-                <span className="fa fa-3x fa-location-arrow black" />
+                <span className="fa fa-2x fa-location-arrow black" />
               </div>
               <div className="col-2 mt-4">
-                <h5>{event.city}</h5>
+                <h5
+                  style={{
+                    backgroundColor: "#f2f2f2"
+                  }}
+                >
+                  {event.city}
+                </h5>
               </div>
               <div className="col-1 mt-3">
                 <span
-                  className="fa fa-3x fa-address-card black"
+                  className="fa fa-2x fa-address-card black"
                   style={organiseStyle}
                 />
               </div>
               <div className="col-3 mt-4">
-                <h5 style={organiseStyle}>{event.author}</h5>
+                <h5
+                  style={{
+                    backgroundColor: "#f2f2f2"
+                  }}
+                >
+                  {event.author}
+                </h5>
               </div>
               <div className="col-4 mt-4" style={peopleStyle}>
                 21 personnes intéressées

@@ -33,6 +33,7 @@ class Header extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   toggleNav() {
@@ -48,6 +49,7 @@ class Header extends Component {
       redirect: true
     });
   };
+
   renderRedirect = () => {
     if (this.state.redirect) {
       var searchText = "/search/".concat(this.search.value);
@@ -67,7 +69,16 @@ class Header extends Component {
         " Se souvenir: " +
         this.remember.checked
     );
+    this.props.loginUser({
+      username: this.username.value,
+      password: this.password.value
+    });
+
     event.preventDefault();
+  }
+
+  handleLogout() {
+    this.props.logoutUser();
   }
 
   handleSearch(event) {
@@ -144,9 +155,23 @@ class Header extends Component {
             </Nav>
             <Nav navbar className="ml-auto">
               <NavItem>
-                <Button onClick={this.toggleModal} className="connexion">
-                  <h5 style={{ marginTop: 8 }}>Connexion</h5>
-                </Button>
+                {!this.props.auth.isAuthenticated ? (
+                  <Button onClick={this.toggleModal} className="connexion">
+                    <h5 style={{ marginTop: 8 }}>Connexion</h5>
+                  </Button>
+                ) : (
+                  <div>
+                    <div className="navbar-text mr-3">
+                      {this.props.auth.user.username}
+                    </div>
+                    <Button outline onClick={this.handleLogout}>
+                      <span className="fa fa-sign-out fa-lg" /> Logout
+                      {this.props.auth.isFetching ? (
+                        <span className="fa fa-spinner fa-pulse fa-fw" />
+                      ) : null}
+                    </Button>
+                  </div>
+                )}
               </NavItem>
             </Nav>
           </Collapse>

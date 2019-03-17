@@ -20,7 +20,9 @@ import {
   fetchComments,
   fetchPromos,
   fetchLeaders,
-  fetchEvents
+  fetchEvents,
+  loginUser,
+  logoutUser
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -31,7 +33,8 @@ const mapStateToProps = state => {
     comments: state.comments,
     promotions: state.promotions,
     leaders: state.leaders,
-    events: state.events
+    events: state.events,
+    auth: state.auth
   };
 };
 
@@ -103,6 +106,8 @@ const mapDispatchToProps = dispatch => ({
   fetchComments: () => {
     dispatch(fetchComments());
   },
+  loginUser: creds => dispatch(loginUser(creds)),
+  logoutUser: () => dispatch(logoutUser()),
   fetchPromos: () => {
     dispatch(fetchPromos());
   },
@@ -201,7 +206,11 @@ class Main extends Component {
 
     return (
       <div className="App">
-        <Header />
+        <Header
+          auth={this.props.auth}
+          loginUser={this.props.loginUser}
+          logoutUser={this.props.logoutUser}
+        />
         <TransitionGroup>
           <CSSTransition
             key={this.props.location.key}
