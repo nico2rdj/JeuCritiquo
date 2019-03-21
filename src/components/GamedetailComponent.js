@@ -208,9 +208,9 @@ function RenderGameD({ game }) {
 
 const SearchGame = props => {
   const allEvents = props.games.map(game => {
-    var gameId = "/games/".concat(game.id);
+    var gameId = "/games/".concat(game._id);
     return (
-      <div key={game.id} className="col-12 col-md-12">
+      <div key={game._id} className="col-12 col-md-12">
         <Link to={gameId} style={{ textDecoration: "none", color: "black" }}>
           <RenderGame game={game} />
           {/*}
@@ -395,7 +395,7 @@ function RenderCommentsB({ comments, postComment, gameId }) {
         <Stagger in>
           {comments.map(comment => (
             <Fade in>
-              <div key={comment.id}>
+              <div key={comment._id}>
                 <h5>{comment.author}</h5>
                 <p>{comment.comment}</p>
                 <p>
@@ -419,76 +419,74 @@ function RenderCommentsB({ comments, postComment, gameId }) {
 
 function RenderComments({ comments, postComment, gameId }) {
   if (comments != null) {
+    console.log(comments);
     return (
       <div>
-        <Stagger in>
-          {comments.map(comment => (
-            <Fade in>
-              <div key={comment.id}>
-                <div className="row">
-                  <Media style={borderBox}>
-                    <Media left href="#">
-                      <Media
-                        object
-                        src={baseUrl + "images/profile.png"}
-                        style={imgStyleComment}
-                        alt={comment.author}
+        {comments.map(comment => (
+          <div key={comment._id}>
+            <div className="row">
+              <Media style={borderBox}>
+                <Media left href="#">
+                  <Media
+                    object
+                    src={baseUrl + "images/profile.png"}
+                    style={imgStyleComment}
+                    alt={comment.author}
+                  />
+                </Media>
+                <Media body style={{ marginLeft: "15px" }}>
+                  <div className="row">
+                    <div className="col-md-3">
+                      <Media left heading style={{ marginTop: "10px" }}>
+                        {comment.author.username}
+                      </Media>
+                    </div>
+                    <div className="col-md-2">
+                      <p style={{ marginTop: "10px" }}>
+                        {new Intl.DateTimeFormat("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "2-digit"
+                        }).format(new Date(Date.parse(comment.updatedAt)))}
+                      </p>
+                    </div>
+                    <div className="offset-4 col-md-3">
+                      <span
+                        style={{ marginLeft: "20px", color: "#F5C518" }}
+                        className="fa fas fa-2x fa-star mt-3"
                       />
-                    </Media>
-                    <Media body style={{ marginLeft: "15px" }}>
-                      <div className="row">
-                        <div className="col-md-3">
-                          <Media left heading style={{ marginTop: "10px" }}>
-                            {comment.author}
-                          </Media>
-                        </div>
-                        <div className="col-md-2">
-                          <p style={{ marginTop: "10px" }}>
-                            {new Intl.DateTimeFormat("en-us", {
-                              year: "numeric",
-                              month: "short",
-                              day: "2-digit"
-                            }).format(new Date(Date.parse(comment.date)))}
-                          </p>
-                        </div>
-                        <div className="offset-4 col-md-3">
-                          <span
-                            style={{ marginLeft: "20px", color: "#F5C518" }}
-                            className="fa fas fa-2x fa-star mt-3"
-                          />
-                          <span
-                            style={{
-                              marginLeft: "20px",
-                              fontSize: "25px",
-                              fontWeight: "bold"
-                            }}
-                          >
-                            {comment.rating}{" "}
-                            <span
-                              style={{
-                                marginLeft: "2px",
-                                fontSize: "15px",
-                                color: "grey"
-                              }}
-                            >
-                              / 10
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="row mr-1" style={{ height: "80px" }}>
-                        <div className="col-md-10">{comment.comment}</div>
-                      </div>
-                    </Media>
-                  </Media>
-                </div>
-              </div>
-            </Fade>
-          ))}
-        </Stagger>
+                      <span
+                        style={{
+                          marginLeft: "20px",
+                          fontSize: "25px",
+                          fontWeight: "bold"
+                        }}
+                      >
+                        {comment.rating}{" "}
+                        <span
+                          style={{
+                            marginLeft: "2px",
+                            fontSize: "15px",
+                            color: "grey"
+                          }}
+                        >
+                          / 10
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="row mr-1" style={{ height: "80px" }}>
+                    <div className="col-md-10">{comment.comment}</div>
+                  </div>
+                </Media>
+              </Media>
+            </div>
+          </div>
+        ))}
       </div>
     );
   } else {
+    console.log("comments est nul !!");
     return <div />;
   }
 }
@@ -502,7 +500,7 @@ const GameDetail = props => {
         </div>
       </div>
     );
-  } else if (props.errMess) {
+  } else if (props.errMess || !props.game) {
     return (
       <div className="container">
         <div className="row">
@@ -543,14 +541,17 @@ const GameDetail = props => {
           </h5>
         </div>
         <div className="row">
-          <CommentForm postComment={props.postComment} gameId={props.game.id} />
+          <CommentForm
+            postComment={props.postComment}
+            gameId={props.game._id}
+          />
         </div>
         <div className="row">
           <div className="col-12 col-md-12 mt-1">
             <RenderComments
               comments={props.comments}
               postComment={props.postComment}
-              gameId={props.game.id}
+              gameId={props.game._id}
             />
           </div>
         </div>

@@ -167,13 +167,13 @@ class Main extends Component {
         <GameDetail
           game={
             this.props.games.games.filter(
-              game => game.id === parseInt(match.params.gameId, 10)
+              game => game._id === match.params.gameId
             )[0]
           }
           isLoading={this.props.games.isLoading}
           errMess={this.props.games.errMess}
           comments={this.props.comments.comments.filter(
-            comment => comment.gameId === parseInt(match.params.gameId, 10)
+            comment => comment.game._id === match.params.gameId
           )}
           commentsErrMess={this.props.comments.errMess}
           postComment={this.props.postComment}
@@ -186,7 +186,7 @@ class Main extends Component {
         <Event
           event={
             this.props.events.events.filter(
-              event => event.id === parseInt(match.params.eventId, 10)
+              event => event._id === match.params.eventId
             )[0]
           }
           isLoading={this.props.events.isLoading}

@@ -10,17 +10,17 @@ import { baseUrl } from "../shared/baseUrl";
 
 const items = [
   {
-    src: "http://localhost:3001/images/board.jpg",
+    src: "https://localhost:3443/images/board.jpg",
     altText: "Slide 1",
     caption: "Slide 1"
   },
   {
-    src: "http://localhost:3001/images/board.jpg",
+    src: "https://localhost:3443/images/theMind.png",
     altText: "Slide 2",
     caption: "Slide 2"
   },
   {
-    src: "http://localhost:3001/images/board.jpg",
+    src: "https://localhost:3443/images/risk.jpg",
     altText: "Slide 3",
     caption: "Slide 3"
   }
@@ -70,7 +70,7 @@ class CarouselHome extends Component {
 
   render() {
     const { activeIndex } = this.state;
-
+    // key
     const slides = items.map(item => {
       return (
         <CarouselItem

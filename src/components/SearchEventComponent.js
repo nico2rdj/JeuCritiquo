@@ -165,9 +165,9 @@ function RenderEvent({ event }) {
 
 const SearchEvent = props => {
   const allEvents = props.events.events.map(event => {
-    var eventId = "/events/".concat(event.id);
+    var eventId = "/events/".concat(event._id);
     return (
-      <div key={event.id} className="col-12 col-md-12">
+      <div key={event._id} className="col-12 col-md-12">
         <Link to={eventId} style={{ textDecoration: "none", color: "black" }}>
           <RenderEvent event={event} />
           {/*}

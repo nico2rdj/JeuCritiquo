@@ -22,18 +22,21 @@ export const addComment = comment => ({
 // le dispatch dans la signature a cause du thunk
 export const postComment = (gameId, rating, author, comment) => dispatch => {
   const newComment = {
-    gameId: gameId,
+    game: gameId,
     rating: rating,
     author: author,
     comment: comment
   };
   newComment.date = new Date().toISOString();
 
+  const bearer = "Bearer " + localStorage.getItem("token");
+
   return fetch(baseUrl + "comments", {
     method: "POST",
     body: JSON.stringify(newComment),
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: bearer
     },
     credentials: "same-origin"
   })
@@ -59,7 +62,7 @@ export const postComment = (gameId, rating, author, comment) => dispatch => {
     .catch(error => {
       console.log("Post comments", error.message);
       alert(
-        "Votre commentaire n' pas pu être posté...\nErreur: " + error.message
+        "Votre commentaire n'a pas pu être posté...\nErreur: " + error.message
       );
     });
 };
@@ -354,11 +357,14 @@ export const postEvent = values => dispatch => {
   };
   newEvent.date = new Date().toISOString();
 
+  const bearer = "Bearer " + localStorage.getItem("token");
+
   return fetch(baseUrl + "events", {
     method: "POST",
     body: JSON.stringify(newEvent),
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: bearer
     },
     credentials: "same-origin"
   })

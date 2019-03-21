@@ -11,6 +11,12 @@ import {
 import { Link } from "react-router-dom";
 import { Control, Form, Errors, actions } from "react-redux-form";
 
+import { baseUrl } from "../shared/baseUrl";
+
+/* file upload */
+import axios from "axios";
+import path from "path";
+
 /* airbnb react dates lobrary check https://codeburst.io/using-a-datepicker-in-react-js-b67e970195fd */
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
@@ -150,13 +156,15 @@ class CreationEvent extends Component {
     reader.readAsDataURL(file);
   }
 
+  /* handle image upload */
+  handleUploadImage = e => this.setState({ file: e.target.files[0] });
+
   handleTimeChange = time => this.setState({ time });
 
-  handleDateChange(date) {
+  handleDateChange = date =>
     this.setState({
       date: date
     });
-  }
 
   clone(obj) {
     if (null == obj || "object" != typeof obj) return obj;
@@ -171,8 +179,31 @@ class CreationEvent extends Component {
     var t_values = this.clone(values);
     t_values.dateEvent = this.state.date;
     t_values.startHour = this.state.time;
+
     console.log("l'état est : " + JSON.stringify(values));
     alert("l'état est : " + JSON.stringify(t_values));
+
+    /* push l'image sur le serveur */
+    const formData = new FormData();
+    formData.append("myImage", this.state.file);
+    const bearer = "Bearer " + localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: bearer
+      },
+      credentials: "same-origin"
+    };
+    axios
+      .post(baseUrl + "imageUpload", formData, config)
+      .then(response => {
+        alert("The file is successfully uploaded");
+        t_values.image = response.filename;
+      })
+      .catch(error => {
+        alert("pas bon..." + error);
+      });
 
     this.props.postEvent(t_values);
   }

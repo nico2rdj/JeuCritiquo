@@ -19,7 +19,7 @@ function RenderCard({ item, isLoading, errMess }) {
     return <Loading />;
   } else if (errMess) {
     return <h4>{errMess}</h4>;
-  } else
+  } else if (item)
     return (
       <FadeTransform
         in
@@ -39,6 +39,7 @@ function RenderCard({ item, isLoading, errMess }) {
         </Card>
       </FadeTransform>
     );
+  return null;
 }
 function Home(props) {
   return (
