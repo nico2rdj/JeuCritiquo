@@ -199,13 +199,17 @@ class CreationEvent extends Component {
       .post(baseUrl + "imageUpload", formData, config)
       .then(response => {
         alert("The file is successfully uploaded");
-        t_values.image = response.filename;
+
+        alert(response.data);
+
+        t_values.image = "images/" + response.data;
       })
       .catch(error => {
         alert("pas bon..." + error);
+      })
+      .then(() => {
+        this.props.postEvent(t_values);
       });
-
-    this.props.postEvent(t_values);
   }
 
   render() {
