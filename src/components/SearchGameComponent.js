@@ -17,7 +17,10 @@ import {
   Label,
   Modal,
   ModalHeader,
-  ModalBody
+  ModalBody,
+  Pagination,
+  PaginationItem,
+  PaginationLink
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
@@ -196,7 +199,7 @@ function RenderGame({ game }) {
   );
 }
 
-const SearchGame = props => {
+const SearchGame_ = props => {
   const allEvents = props.games.map(game => {
     var gameId = "/games/".concat(game._id);
     return (
@@ -255,5 +258,94 @@ const SearchGame = props => {
     </div>
   );
 };
+
+//export default SearchGame;
+
+class SearchGame extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      games: this.props.games,
+      currentPage: 1,
+      gamesPerPage: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClickBack = this.handleClickBack.bind(this);
+    this.handleClickForward = this.handleClickForward.bind(this);
+  }
+
+  handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
+
+  handleClickBack(event) {
+    if (this.state.currentPage > 1)
+      this.setState({
+        currentPage: this.state.currentPage - 1
+      });
+  }
+
+  handleClickForward(event) {
+    if (
+      this.state.currentPage <
+      Math.ceil(this.state.games.length / this.state.gamesPerPage)
+    )
+      this.setState({
+        currentPage: this.state.currentPage + 1
+      });
+  }
+
+  render() {
+    const { games, currentPage, gamesPerPage } = this.state;
+
+    // Logic for displaying games
+    const indexOfLastGame = currentPage * gamesPerPage;
+    const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+    const currentGames = this.props.games.slice(
+      indexOfFirstGame,
+      indexOfLastGame
+    );
+
+    const renderGames = () => {
+      return <SearchGame_ games={currentGames} search={this.props.search} />;
+    };
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(games.length / gamesPerPage); i++) {
+      pageNumbers.push(i);
+    }
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <Button
+          style={{ margin: "5px" }}
+          key={number}
+          id={number}
+          onClick={this.handleClick}
+        >
+          {number}
+        </Button>
+      );
+    });
+
+    return (
+      <div>
+        <SearchGame_ games={currentGames} search={this.props.search} />
+
+        <ul style={{ textAlign: "center" }}>
+          <Button style={{ margin: "5px" }} onClick={this.handleClickBack}>
+            <span className="fa fa-arrow-left fa-lg" />
+          </Button>
+          {renderPageNumbers}
+          <Button style={{ margin: "5px" }} onClick={this.handleClickForward}>
+            <span className="fa fa-arrow-right fa-lg" />
+          </Button>
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default SearchGame;

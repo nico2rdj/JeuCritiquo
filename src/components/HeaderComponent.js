@@ -27,7 +27,8 @@ import {
   Row,
   Col
 } from "reactstrap";
-import { Link, Redirect, Switch } from "react-router-dom";
+
+import { NavLink as RRNavLink, Link, Redirect, Switch } from "react-router-dom";
 import classnames from "classnames";
 
 const tabStyle = {
@@ -177,30 +178,30 @@ class Header extends Component {
           <Collapse isOpen={this.state.isNavOpen} navbar>
             <Nav navbar className="ml-auto">
               <NavItem>
-                <NavLink className="nav-link" to="/home">
+                <RRNavLink className="nav-link" to="/home">
                   <span className="fa fa-home fa-lg" /> <h4>Acceuil</h4>
-                </NavLink>
+                </RRNavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/contactus">
+                <RRNavLink className="nav-link" to="/contactus">
                   <span className="fa fa-address-card black fa-lg" />
                   <h4>Nous contacter</h4>
-                </NavLink>
+                </RRNavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/aboutus">
+                <RRNavLink className="nav-link" to="/aboutus">
                   <span className="fa fa-info fa-lg" /> <h4>A propos</h4>
-                </NavLink>
+                </RRNavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/menu">
+                <RRNavLink className="nav-link" to="/menu">
                   <span className="fa fa-globe fa-lg" /> <h4>Explorer</h4>
-                </NavLink>
+                </RRNavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/events">
+                <RRNavLink className="nav-link" to="/events">
                   <span className="fa fa-users fa-lg" /> <h4>Evenements</h4>
-                </NavLink>
+                </RRNavLink>
               </NavItem>
             </Nav>
             <Nav navbar className="ml-auto">
