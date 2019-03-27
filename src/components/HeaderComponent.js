@@ -4,6 +4,7 @@ import {
   NavbarBrand,
   Jumbotron,
   Nav,
+  NavLink,
   NavbarToggler,
   Collapse,
   NavItem,
@@ -17,9 +18,22 @@ import {
   InputGroup,
   InputGroupText,
   InputGroupAddon,
-  Label
+  Label,
+  TabContent,
+  TabPane,
+  Card,
+  CardTitle,
+  CardText,
+  Row,
+  Col
 } from "reactstrap";
-import { NavLink, Link, Redirect, Switch } from "react-router-dom";
+import { Link, Redirect, Switch } from "react-router-dom";
+import classnames from "classnames";
+
+const tabStyle = {
+  width: "50%",
+  textAlign: "center"
+};
 
 class Header extends Component {
   constructor(props) {
@@ -27,13 +41,26 @@ class Header extends Component {
     this.state = {
       isNavOpen: false,
       isModalOpen: false,
-      redirect: false
+      redirect: false,
+      isModalSignupOpen: false,
+      activeTab: "1"
     };
     this.toggleNav = this.toggleNav.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.toggleModalSignup = this.toggleModalSignup.bind(this);
+    this.toggleTab = this.toggleTab.bind(this);
+  }
+
+  toggleTab(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
   }
 
   toggleNav() {
@@ -42,6 +69,10 @@ class Header extends Component {
 
   toggleModal() {
     this.setState({ isModalOpen: !this.state.isModalOpen });
+  }
+
+  toggleModalSignup() {
+    this.setState({ isModalSignupOpen: !this.state.isModalSignupOpen });
   }
 
   setRedirect = () => {
@@ -72,6 +103,25 @@ class Header extends Component {
     this.props.loginUser({
       username: this.username.value,
       password: this.password.value
+    });
+
+    event.preventDefault();
+  }
+
+  handleSignup(event) {
+    /* on agit directement sur le dom */
+    this.toggleModalSignup();
+    alert(
+      "Pseudo: " +
+        this.newUsername.value +
+        " Mot de passe: " +
+        this.newPassword.value +
+        " Se souvenir: " +
+        this.newRemember.checked
+    );
+    this.props.signupUser({
+      username: this.newUsername.value,
+      password: this.newPassword.value
     });
 
     event.preventDefault();
@@ -189,8 +239,59 @@ class Header extends Component {
         </Jumbotron>
         */}
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+          {/*
           <ModalHeader toggle={this.toggleModal}>Connexion</ModalHeader>
-          <ModalBody>
+          <ModalHeader toggle={this.toggleModalSignup}>S'inscrire</ModalHeader>
+          */}
+          <ModalBody style={{ padding: "0px" }}>
+            {/*              sign up        */}
+
+            <Modal
+              isOpen={this.state.isModalSignupOpen}
+              toggle={this.toggleModalSignup}
+            >
+              <ModalHeader toggle={this.isModalSignupOpen}>
+                Inscription
+              </ModalHeader>
+              <ModalBody>
+                <Form onSubmit={this.handleSignup}>
+                  <FormGroup>
+                    <Label htmlFor="username">Pseudo</Label>
+                    <Input
+                      type="text"
+                      id="username"
+                      name="username"
+                      innerRef={input => (this.username = input)}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="password">Mot de passe</Label>
+                    <Input
+                      type="password"
+                      id="password"
+                      name="password"
+                      innerRef={input => (this.password = input)}
+                    />
+                  </FormGroup>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        name="remember"
+                        innerRef={input => (this.remember = input)}
+                      />
+                      Se souvenir
+                    </Label>
+                  </FormGroup>
+                  <Button type="submit" value="submit" color="primary">
+                    S'inscrire
+                  </Button>
+                </Form>
+              </ModalBody>
+            </Modal>
+
+            {/* end sign up */}
+            {/*
             <Form onSubmit={this.handleLogin}>
               <FormGroup>
                 <Label htmlFor="username">Pseudo</Label>
@@ -224,6 +325,113 @@ class Header extends Component {
                 Se connecter
               </Button>
             </Form>
+            */}
+            <Nav tabs>
+              <NavItem style={tabStyle}>
+                <NavLink
+                  className={classnames({
+                    active: this.state.activeTab === "1"
+                  })}
+                  onClick={() => {
+                    this.toggleTab("1");
+                  }}
+                >
+                  Connexion
+                </NavLink>
+              </NavItem>
+              <NavItem style={tabStyle}>
+                <NavLink
+                  className={classnames({
+                    active: this.state.activeTab === "2"
+                  })}
+                  onClick={() => {
+                    this.toggleTab("2");
+                  }}
+                >
+                  Inscription
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <TabContent
+              activeTab={this.state.activeTab}
+              style={{ padding: "1em" }}
+            >
+              <TabPane tabId="1">
+                <Row>
+                  <Col sm="12">
+                    <h4>Connexion</h4>
+                  </Col>
+                </Row>
+                <Form onSubmit={this.handleLogin}>
+                  <FormGroup>
+                    <Label htmlFor="username">Pseudo</Label>
+                    <Input
+                      type="text"
+                      id="username"
+                      name="username"
+                      innerRef={input => (this.username = input)}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="password">Mot de passe</Label>
+                    <Input
+                      type="password"
+                      id="password"
+                      name="password"
+                      innerRef={input => (this.password = input)}
+                    />
+                  </FormGroup>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        name="remember"
+                        innerRef={input => (this.remember = input)}
+                      />
+                      Se souvenir
+                    </Label>
+                  </FormGroup>
+                  <Button type="submit" value="submit" color="primary">
+                    Se connecter
+                  </Button>
+                </Form>
+              </TabPane>
+              <TabPane tabId="2">
+                <Form onSubmit={this.handleSignup}>
+                  <FormGroup>
+                    <Label htmlFor="username">Pseudo</Label>
+                    <Input
+                      type="text"
+                      id="username"
+                      name="username"
+                      innerRef={input => (this.newUsername = input)}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="password">Mot de passe</Label>
+                    <Input
+                      type="password"
+                      id="password"
+                      name="password"
+                      innerRef={input => (this.newPassword = input)}
+                    />
+                  </FormGroup>
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        name="remember"
+                        innerRef={input => (this.newRemember = input)}
+                      />
+                      Se souvenir
+                    </Label>
+                  </FormGroup>
+                  <Button type="submit" value="submit" color="primary">
+                    S'inscrire
+                  </Button>
+                </Form>
+              </TabPane>
+            </TabContent>
           </ModalBody>
         </Modal>
       </React.Fragment>

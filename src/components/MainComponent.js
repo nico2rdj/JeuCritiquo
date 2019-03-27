@@ -22,7 +22,8 @@ import {
   fetchLeaders,
   fetchEvents,
   loginUser,
-  logoutUser
+  logoutUser,
+  signupUser
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -107,6 +108,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchComments());
   },
   loginUser: creds => dispatch(loginUser(creds)),
+  signupUser: creds => dispatch(signupUser(creds)),
   logoutUser: () => dispatch(logoutUser()),
   fetchPromos: () => {
     dispatch(fetchPromos());
@@ -210,6 +212,7 @@ class Main extends Component {
           auth={this.props.auth}
           loginUser={this.props.loginUser}
           logoutUser={this.props.logoutUser}
+          signupUser={this.props.signupUser}
         />
         <TransitionGroup>
           <CSSTransition

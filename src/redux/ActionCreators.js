@@ -484,3 +484,67 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem("creds");
   dispatch(receiveLogout());
 };
+
+// Sign up
+
+export const requestSignup = creds => {
+  return {
+    type: ActionTypes.SIGNUP_REQUEST,
+    creds
+  };
+};
+
+export const signupError = message => {
+  return {
+    type: ActionTypes.SIGNUP_FAILURE,
+    message
+  };
+};
+
+export const receiveSignup = response => {
+  return {
+    type: ActionTypes.SIGNUP_SUCCESS,
+    response
+  };
+};
+
+export const signupUser = creds => dispatch => {
+  // We dispatch requestLogin to kickoff the call to the API
+  dispatch(requestSignup(creds));
+
+  return fetch(baseUrl + "users/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(creds)
+  })
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        throw error;
+      }
+    )
+    .then(response => response.json())
+    .then(response => {
+      if (response.success) {
+        alert("Success for signing up");
+        //dispatch(receiveSignup(response));
+      } else {
+        var error = new Error("Error " + response.status);
+        error.response = response;
+        throw error;
+      }
+    })
+    .catch(error => dispatch(signupError(error.message)));
+};
