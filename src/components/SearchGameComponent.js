@@ -137,8 +137,11 @@ function RenderGame({ game }) {
                 </span>
               </div>
             </div>
+
             <div className="row mr-1" style={{ height: "80px" }}>
-              <div className="col-10">{game.description}</div>
+              <div className="col-10">
+                {game.description.substring(0, 250)}...
+              </div>
             </div>
             <div className="row">
               <div className="col-2 mt-3">
@@ -200,8 +203,13 @@ function RenderGame({ game }) {
 }
 
 const SearchGame_ = props => {
+  /*var games = props.games.filter(game => {
+    return game.name.toLowerCase().startsWith(props.search.toLowerCase());
+  });*/
+
   const allEvents = props.games.map(game => {
     var gameId = "/games/".concat(game._id);
+
     return (
       <div key={game._id} className="col-12 col-md-12">
         <Link to={gameId} style={{ textDecoration: "none", color: "black" }}>
@@ -231,21 +239,9 @@ const SearchGame_ = props => {
               <Link to="/home">Home</Link>
             </BreadcrumbItem>
             <BreadcrumbItem active>
-              <Link to="/event">Evenements</Link>
+              <Link to="/event">Jeux</Link>
             </BreadcrumbItem>
           </Breadcrumb>
-        </div>
-
-        <div className="col-3 offset-3">
-          <Link to="/creationevent">
-            <Button
-              onClick={() => {}}
-              className="connexion ml-auto"
-              style={organiserButtonStyle}
-            >
-              <h5 style={{ marginTop: "7px" }}>Organiser un événement</h5>
-            </Button>
-          </Link>
         </div>
 
         <div className="col-12">
@@ -265,9 +261,11 @@ class SearchGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: this.props.games,
+      games: this.props.games.filter(game => {
+        return game.name.toLowerCase().startsWith(props.search.toLowerCase());
+      }),
       currentPage: 1,
-      gamesPerPage: 1
+      gamesPerPage: 10
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClickBack = this.handleClickBack.bind(this);
@@ -303,13 +301,15 @@ class SearchGame extends React.Component {
     // Logic for displaying games
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    const currentGames = this.props.games.slice(
+
+    // liste les jeux trouvés
+    const currentGames = this.state.games.slice(
       indexOfFirstGame,
       indexOfLastGame
     );
 
     const renderGames = () => {
-      return <SearchGame_ games={currentGames} search={this.props.search} />;
+      return <SearchGame_ games={this.prop.games} search={this.props.search} />;
     };
 
     const pageNumbers = [];
@@ -318,16 +318,40 @@ class SearchGame extends React.Component {
     }
 
     const renderPageNumbers = pageNumbers.map(number => {
-      return (
-        <Button
-          style={{ margin: "5px" }}
-          key={number}
-          id={number}
-          onClick={this.handleClick}
-        >
-          {number}
-        </Button>
-      );
+      if (number === this.state.currentPage) {
+        return (
+          <Button
+            style={{ margin: "5px", backgroundColor: "red" }}
+            key={number}
+            id={number}
+            onClick={this.handleClick}
+          >
+            {number}
+          </Button>
+        );
+      } else if (number < 3 || number > pageNumbers.length - 2)
+        return (
+          <Button
+            style={{ margin: "5px" }}
+            key={number}
+            id={number}
+            onClick={this.handleClick}
+          >
+            {number}
+          </Button>
+        );
+      else if (number === 3) {
+        return (
+          <Button
+            style={{ margin: "5px" }}
+            key={number}
+            id={number}
+            onClick={this.handleClick}
+          >
+            ...
+          </Button>
+        );
+      }
     });
 
     return (
